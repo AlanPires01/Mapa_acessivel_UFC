@@ -14,43 +14,43 @@ const dados = [
     title: 'Cursos de Graduação',
     iconName: 'graduation-cap',
     screenName: 'cursos',
-    id: 0,
+    id: '0',
   },
   {
     title: 'Cursos de Pós Graduação',
     iconName: 'graduation-cap',
     screenName: 'cursospos',
-    id: 1,
+    id: '1',
   },
   {
     title: 'Bibliotecas',
     iconName: 'book',
     screenName: 'biblioteca',
-    id: 2,
+    id: '2',
   },
   {
     title: 'Refeitório Universitário',
     iconName: 'coffee',
     screenName: 'RU',
-    id: 3,
+    id: '3',
   },
   {
     title: 'Serviço de Psicologia Aplicada',
     iconName: 'heart',
     screenName: 'psicologia',
-    id: 4,
+    id: '4',
   },
   {
     title: 'Ônibus Intracampus',
     iconName: 'bus',
     screenName: 'onibus',
-    id: 5,
+    id: '5',
   },
   {
     title: 'Assistência Estudantil',
     iconName: 'group',
     screenName: 'assistencia',
-    id: 6,
+    id: '6',
   },
 ];
 
@@ -76,6 +76,7 @@ const estilo = StyleSheet.create({
   linksContainer: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#89896f',
   },
   linksList: {
     width: '95%',
