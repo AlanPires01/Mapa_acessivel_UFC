@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  ScrollView,
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import {TouchableOpacity,ScrollView,Text,View,StyleSheet,FlatList} from 'react-native';
 import { Icon } from 'react-native-elements';
+import {css} from '../assets/css/css';
 
 const dados = [
   {
@@ -17,7 +11,7 @@ const dados = [
     id: '0',
   },
   {
-    title: 'Cursos de Pós Graduação',
+    title: 'Cursos de Pós-Graduação',
     iconName: 'graduation-cap',
     screenName: 'cursospos',
     id: '1',
@@ -58,40 +52,18 @@ const Infos = ({ navigation }) => {
   const render = ({ item }) => {
     return (
       <TouchableOpacity
-        style={estilo.linksButtons}
+        style={css.linksButtons}
         onPress={() => navigation.navigate(item.screenName)}>
         <Icon color="white" name={item.iconName} type="font-awesome" />
-        <Text style={estilo.linksText}>{item.title.toUpperCase()}</Text>
+        <Text style={css.linksText}>{item.title.toUpperCase()}</Text>
       </TouchableOpacity>
     );
   };
   return (
-      <View style={estilo.linksContainer}>
-        <FlatList style={estilo.linksList} data={dados} renderItem={render} />
+      <View style={css.linksContainer}>
+        <FlatList style={css.linksList} data={dados} renderItem={render} />
       </View>
   );
 };
-
-const estilo = StyleSheet.create({
-  linksContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#89896f',
-  },
-  linksList: {
-    width: '95%',
-  },
-  linksButtons: {
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 90,
-    borderRadius: 5,
-    margin: 5,
-  },
-  linksText: {
-    color: 'white',
-  },
-});
 
 export default Infos;
