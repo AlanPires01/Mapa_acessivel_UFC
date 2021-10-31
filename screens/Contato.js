@@ -2,8 +2,14 @@ import React from 'react';
 import {View, Text, ScrollView, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {textos} from '../textos';
-import Infos from './Infos'
-
+import Infos from './Infos';
+import CursosGraduacao from './CursosGraduacao';
+import CursosPosGraduacao from './CursosPosGraduacao';
+import Bibliotecas from './Bibliotecas';
+import RefeitorioUniversitario from './RefeitorioUniversitario';
+import ServicoPsicologia from './ServicoPsicologia';
+import OnibusIntracampus from './OnibusIntracampus';
+import AssistenciaEstudantil from './AssistenciaEstudantil';
 
 const Stack = createNativeStackNavigator();
 const Contato = ({navigation}) => {
@@ -20,103 +26,5 @@ const Contato = ({navigation}) => {
   </Stack.Navigator>
   );
 }
-
-//telas de contatos
-const CursosGraduacao = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Cursos de Graduação</Text>
-        <Text style={estilo.content}>{textos[0]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-
-const CursosPosGraduacao = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Cursos de Pós Graduação</Text>
-        <Text style={estilo.content}>{textos[1]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-const Bibliotecas = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Bibliotecas</Text>
-        <Text style={estilo.content}>{textos[2]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-
-const RefeitorioUniversitario = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Refeitório Universitário</Text>
-        <Text style={estilo.content}>{textos[3]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-
-const ServicoPsicologia = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Serviço de Psicologia</Text>
-        <Text style={estilo.content}>{textos[4]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-
-const OnibusIntracampus = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Ônibus Intracampus</Text>
-        <Text style={estilo.content}>{textos[5]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-
-const AssistenciaEstudantil = ({navigation}) => {
-  return (
-    <View style={estilo.container}>
-      <ScrollView style={{margin:10,}}>
-        <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"></Button>
-        <Text style={estilo.titulo}>Assistência Estudantil</Text>
-        <Text style={estilo.content}>{textos[6]}</Text>   
-      </ScrollView>
-    </View>
-  );
-}
-
-const estilo = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:"#89896f",
-  },
-  titulo:{
-    color:'white',
-    fontSize:25,
-  },
-  content:{
-    color:'white'
-  }
-});
 
 export default Contato;
