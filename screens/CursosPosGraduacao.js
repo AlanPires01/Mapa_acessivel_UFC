@@ -3,6 +3,7 @@ import {View, Text,Button, StyleSheet, ScrollView} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
 import {css} from '../assets/css/css';
+import { Paragraph,Title,Divider } from 'react-native-paper';
 
 export default function CursosPosGraduacao({ navigation }) {
   const [showRMed, setRMed] = useState(false);
@@ -18,9 +19,7 @@ export default function CursosPosGraduacao({ navigation }) {
   return (
     <ScrollView style={css.container}>
       <Text style={css.titulo}>Cursos de Pós-Graduação</Text>  
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='clinic-medical' type='font-awesome-5'/>
          <Text onPress={() => setRMed(!showRMed)} style={css.subtitulo}>Residências Médicas</Text>
@@ -28,7 +27,7 @@ export default function CursosPosGraduacao({ navigation }) {
       {
       showRMed ? (
       <Text style={css.texto}>
-      Contato: {'\n'}
+      <Title>Contato</Title> {'\n'}
               Endereço: Santa Casa de Misericórdia de Sobral  {'\n'}
               Rua Antônio Crisóstomo de Melo, nº. 919  {'\n'}
               CEP 62.010-550 – Centro Sobral, Ceará. {'\n'}
@@ -38,9 +37,7 @@ export default function CursosPosGraduacao({ navigation }) {
       ) : null
 
     }
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='dna' type='font-awesome-5'/>
          <Text onPress={() => setBio(!showBio)} style={css.subtitulo}>Mestrado em Biotecnologia</Text>
@@ -48,11 +45,11 @@ export default function CursosPosGraduacao({ navigation }) {
       {
       showBio ? (
       <Text style={css.texto}>
-            Coordenação {'\n'}
+            <Title>Coordenação</Title>{'\n'}
            Coordenadora: Professora Carla Thiciane Vasconcelos de Melo {'\n'}
             Vice-Coordenador: Professor Alex Soares Marreiros Ferraz {'\n'}
               {'\n'}
-            Contato {'\n'}
+            <Title>Contato</Title> {'\n'}
             Endereço: Avenida Comandante Maurocélio Rocha Pontes, nº. 100 {'\n'}
             CEP 62042-280 – Derby Sobral, Ceará {'\n'}
             Fone: (88) 3695-4720 {'\n'}
@@ -61,9 +58,7 @@ export default function CursosPosGraduacao({ navigation }) {
       </Text>
       ) : null
     }
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+     <Divider style={{backgroundColor:'#016EA4', height: 10}} />
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='hand-holding-medical' type='font-awesome-5'/>
          <Text onPress={() => setCSaude(!showCSaude)} style={css.subtitulo}>Me. em Ciências da Saúde</Text>
@@ -71,10 +66,10 @@ export default function CursosPosGraduacao({ navigation }) {
       {
       showCSaude ? (
       <Text style={css.texto}>
-            Coordenação   {'\n'}
+            <Title>Coordenação</Title>  {'\n'}
               Coordenador: Professor Filipe Nobre Chaves
               {'\n'}  {'\n'}
-            Contato   {'\n'}
+            <Title>Contato</Title>   {'\n'}
                 Endereço: Avenida Comandante Maurocélio Rocha Pontes, nº. 100 {'\n'}
                 CEP 62042-280 – Derby Sobral, Ceará {'\n'}
                 Fone: (88) 3695-4722 {'\n'}
@@ -83,9 +78,7 @@ export default function CursosPosGraduacao({ navigation }) {
       </Text>
       ) : null
     }
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='heartbeat' type='font-awesome-5'/>
          <Text onPress={() => setFSaude(!showFSaude)} style={css.subtitulo}>Me. em Saúde da família</Text>
@@ -93,11 +86,11 @@ export default function CursosPosGraduacao({ navigation }) {
       {
       showFSaude ? (
       <Text style={css.texto}>
-            Coordenação   {'\n'}
+            <Title>Coordenação</Title>  {'\n'}
              Coordenador: Professor Luiz Odorico Monteiro de Andrade {'\n'}
              Vice-Coordenador: Professor Fernando Daniel de Oliveira Mayorga
               {'\n'}  {'\n'}
-            Contato   {'\n'}
+            <Title>Contato</Title>  {'\n'}
                 Endereço: Avenida Comandante Maurocélio Rocha Pontes, nº. 100 {'\n'}
                 CEP 62042-280 – Derby Sobral, Ceará {'\n'}
                 Fone: (88) 3695-4722 {'\n'}
@@ -106,9 +99,7 @@ export default function CursosPosGraduacao({ navigation }) {
       </Text>
       ) : null
     }
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+     <Divider style={{backgroundColor:'#016EA4', height: 10}} />
          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='laptop' type='font-awesome'/>
          <Text onPress={() => setEngEC(!showEngEC)} style={css.subtitulo}>Me. em Engenharia Elétrica e Computação</Text>
@@ -116,11 +107,11 @@ export default function CursosPosGraduacao({ navigation }) {
       {
       showEngEC ? (
       <Text style={css.texto}>
-            Coordenação   {'\n'}
+             <Title>Coordenação</Title>   {'\n'}
               Coordenador: Professor Carlos Alexandre Rolim Fernandes {'\n'}
               Vice-Coordenador: Professor Iális Cavalcante de Paula Júnior
               {'\n'}  {'\n'}
-            Contato   {'\n'}
+              <Title>Contato</Title>   {'\n'}
                Endereço: Bloco I – Campus de Sobral – Mucambinho Rua Coronel Estanislau Frota, nº. 563  {'\n'}
                CEP 62.010-560 – Centro Sobral, Ceará  {'\n'}
                Fone: (88) 3695-4607  {'\n'}
@@ -129,9 +120,7 @@ export default function CursosPosGraduacao({ navigation }) {
       </Text>
       ) : null
     }
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+     <Divider style={{backgroundColor:'#016EA4', height: 10}} />
        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='brain' type='font-awesome-5'/>
          <Text onPress={() => setPsicologia(!showPsicologia)} style={css.subtitulo}>Mestrado Profissional em Psicologia e Políticas Públicas</Text>
@@ -139,11 +128,11 @@ export default function CursosPosGraduacao({ navigation }) {
       {
       showPsicologia ? (
       <Text style={css.texto}>
-            Coordenação   {'\n'}
+            <Title>Coordenação</Title>   {'\n'}
              Coordenador: Professor Francisco Pablo Huascar Aragão Pinheiro {'\n'}
               Vice-Coordenadora: Professora Maria Suely Alves Costa
               {'\n'}  {'\n'}
-            Contato   {'\n'}
+            <Title>Contato</Title>   {'\n'}
                Endereço: Rua Coronel Estanislau Frota, 563  {'\n'} 
                CEP 62.010-560 – Centro Sobral, Ceará  {'\n'}
                 Fone 1: (88) 3695-4639  {'\n'}
@@ -152,9 +141,7 @@ export default function CursosPosGraduacao({ navigation }) {
       </Text>
       ) : null
     }
-      <View style={{backgroundColor:'#016EA4', height: 10}}>
-        <Text></Text>
-      </View>
+    <Divider style={{backgroundColor:'#016EA4', height: 10}} />
        <View style={css.botao}>
           <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"/>
       </View>
