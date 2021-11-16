@@ -3,7 +3,9 @@ import {Text, View, Button, ScrollView, FlatList,Image, StyleSheet } from 'react
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 import { NavigationContainer,DefaultTheme,DarkTheme } from '@react-navigation/native';
 import Contato from './screens/Contato';
+import Mapa from './screens/Mapa';
 import HomeScreen from './screens/HomeScreen';
+import QuemSomosNos from './screens/QuemSomosNos';
 import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
 
@@ -53,11 +55,31 @@ export default function App() {
             )  
           }}
          />
+          <Drawer.Screen name="Mapa" component={Mapa}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+                <Icon
+                  name='map-outline'
+                  type='ionicon'
+                  style={css.iconApp}
+                />
+            )  
+          }}/>
         <Drawer.Screen name="Informações" component={Contato}
           options={{
             drawerIcon: ({ focused, size }) => (
                 <Icon
                   name='document-text-outline'
+                  type='ionicon'
+                  style={css.iconApp}
+                />
+            )  
+          }}/>
+          <Drawer.Screen name="Sobre nós" component={QuemSomosNos}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+                <Icon
+                  name='people-outline'
                   type='ionicon'
                   style={css.iconApp}
                 />
