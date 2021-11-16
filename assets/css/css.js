@@ -8,6 +8,7 @@ const css = StyleSheet.create({
   },
   titulo:{
     fontSize:30,
+    marginTop:10,
     color:'black',
     textAlign: "center",
     width:'100%', 
@@ -67,6 +68,16 @@ const css = StyleSheet.create({
   },
   linksText: {
     color: 'white',
+  },
+  taeImage:{
+   justifyContent:'center',
+   margin:3,
+   width:'100%',
+  },
+  subtituloSobreNos:{
+    textAlign:'center',
+    fontSize:21,
+    color:'black',
   },
 });
 export {css};
