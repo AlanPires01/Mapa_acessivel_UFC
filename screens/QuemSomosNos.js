@@ -16,7 +16,7 @@ export default function QuemSomosNos({ navigation }) {
           </Paragraph>
       <Image
         style={css.taeImage}
-        source={require('../assets/tae1.jpeg')}
+        source={require('../assets/tae.jpeg')}
       />
 	  </View>
   );
