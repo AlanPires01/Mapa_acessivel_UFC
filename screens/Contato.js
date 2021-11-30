@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, ScrollView, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {textos} from '../textos';
 import Infos from './Infos';
 import CursosGraduacao from './CursosGraduacao';
 import CursosPosGraduacao from './CursosPosGraduacao';
