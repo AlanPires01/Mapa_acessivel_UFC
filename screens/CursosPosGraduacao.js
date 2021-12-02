@@ -46,8 +46,8 @@ export default function CursosPosGraduacao({ navigation }) {
       showBio ? (
       <Text style={css.texto}>
             <Title>Coordenação</Title>{'\n'}
-           Coordenadora: Professora Carla Thiciane Vasconcelos de Melo {'\n'}
-            Vice-Coordenador: Professor Alex Soares Marreiros Ferraz {'\n'}
+           Coordenadora: Profª. Carla Thiciane Vasconcelos de Melo {'\n'}
+            Vice-Coordenador: Prof. Alex Soares Marreiros Ferraz {'\n'}
               {'\n'}
             <Title>Contato</Title> {'\n'}
             Endereço: Avenida Comandante Maurocélio Rocha Pontes, nº. 100 {'\n'}
@@ -67,7 +67,7 @@ export default function CursosPosGraduacao({ navigation }) {
       showCSaude ? (
       <Text style={css.texto}>
             <Title>Coordenação</Title>  {'\n'}
-              Coordenador: Professor Filipe Nobre Chaves
+              Coordenador: Prof. Filipe Nobre Chaves
               {'\n'}  {'\n'}
             <Title>Contato</Title>   {'\n'}
                 Endereço: Avenida Comandante Maurocélio Rocha Pontes, nº. 100 {'\n'}
@@ -87,8 +87,8 @@ export default function CursosPosGraduacao({ navigation }) {
       showFSaude ? (
       <Text style={css.texto}>
             <Title>Coordenação</Title>  {'\n'}
-             Coordenador: Professor Luiz Odorico Monteiro de Andrade {'\n'}
-             Vice-Coordenador: Professor Fernando Daniel de Oliveira Mayorga
+             Coordenador: Prof. Luiz Odorico Monteiro de Andrade {'\n'}
+             Vice-Coordenador: Prof. Fernando Daniel de Oliveira Mayorga
               {'\n'}  {'\n'}
             <Title>Contato</Title>  {'\n'}
                 Endereço: Avenida Comandante Maurocélio Rocha Pontes, nº. 100 {'\n'}
@@ -108,8 +108,8 @@ export default function CursosPosGraduacao({ navigation }) {
       showEngEC ? (
       <Text style={css.texto}>
              <Title>Coordenação</Title>   {'\n'}
-              Coordenador: Professor Carlos Alexandre Rolim Fernandes {'\n'}
-              Vice-Coordenador: Professor Iális Cavalcante de Paula Júnior
+              Coordenador: Prof. Carlos Alexandre Rolim Fernandes {'\n'}
+              Vice-Coordenador: Prof. Iális Cavalcante de Paula Júnior
               {'\n'}  {'\n'}
               <Title>Contato</Title>   {'\n'}
                Endereço: Bloco I – Campus de Sobral – Mucambinho Rua Coronel Estanislau Frota, nº. 563  {'\n'}
@@ -129,8 +129,8 @@ export default function CursosPosGraduacao({ navigation }) {
       showPsicologia ? (
       <Text style={css.texto}>
             <Title>Coordenação</Title>   {'\n'}
-             Coordenador: Professor Francisco Pablo Huascar Aragão Pinheiro {'\n'}
-              Vice-Coordenadora: Professora Maria Suely Alves Costa
+             Coordenador: Prof. Francisco Pablo Huascar Aragão Pinheiro {'\n'}
+              Vice-Coordenadora: Profª. Maria Suely Alves Costa
               {'\n'}  {'\n'}
             <Title>Contato</Title>   {'\n'}
                Endereço: Rua Coronel Estanislau Frota, 563  {'\n'} 
