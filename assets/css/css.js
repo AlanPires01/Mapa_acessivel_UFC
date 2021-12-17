@@ -71,8 +71,8 @@ const css = StyleSheet.create({
   },
   taeImage:{
    justifyContent:'center',
+   alignItems:'center',
    margin:3,
-   width:'100%',
   },
   subtituloSobreNos:{
     textAlign:'center',
