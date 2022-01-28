@@ -4,10 +4,14 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@
 import { NavigationContainer,DefaultTheme,DarkTheme } from '@react-navigation/native';
 import Contato from './screens/Contato';
 import Mapa from './screens/Mapa';
+import MapaMed from './screens/MapaMed';
 import HomeScreen from './screens/HomeScreen';
 import QuemSomosNos from './screens/QuemSomosNos';
 import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
 
 const Drawer = createDrawerNavigator();
 
@@ -37,9 +41,34 @@ const opcoes = {
   headerTintColor:'#FFFFFF'
 };
 
+function Mapas() {
+  return (
+    <Tab.Navigator
+    screenOptions={opcoes}
+    screenOptions={{headerShown:false}}
+    >
+      <Tab.Screen name="Mucambinho" component={Mapa}
+      options={{
+        tabBarIcon: () => (
+          <Icon name="map" type='font-awesome-5' style={css.iconApp} />
+        ),
+      }}
+      />
+      <Tab.Screen name="Famed" component={MapaMed} 
+       options={{
+        tabBarIcon: () => (
+          <Icon name="map-marked-alt" type='font-awesome-5' style={css.iconApp} />
+        ),
+      }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <NavigationContainer>
+
       <Drawer.Navigator 
        screenOptions={opcoes} 
        initialRouteName="Home" 
@@ -52,10 +81,12 @@ export default function App() {
                   type='ionicon'
                   style={css.iconApp}
                 />
-            )  
+
+            ) 
+
           }}
          />
-          <Drawer.Screen name="Mapa" component={Mapa}
+          <Drawer.Screen name="Mapas" component={Mapas}
           options={{
             drawerIcon: ({ focused, size }) => (
                 <Icon
@@ -63,7 +94,8 @@ export default function App() {
                   type='ionicon'
                   style={css.iconApp}
                 />
-            )  
+            ),
+            
           }}/>
         <Drawer.Screen name="Informações" component={Contato}
           options={{
