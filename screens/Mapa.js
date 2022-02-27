@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import { WebView } from 'react-native-webview';
 import BarraDeBusca from './BarraDeBusca';
 
-
 //uri: 'https://openlevelup.net/?l=0#'+local.zoom+'/'+local.lon+'/'+local.lat
 //uri: 'https://indoorequal.org/#map=18.98/-3.6937839/-40.3541773/27/15&level=0'
+
 
 export default function Mapa({ navigation }) {
 	//codigo javascript para apagar a barra de pesquisa do site

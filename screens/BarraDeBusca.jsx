@@ -1,44 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import { SearchBar } from 'react-native-elements';
-
-const testedata = [
-	{
-		nome:"Restaurante Universitário",
-		coords:{lon:'-3.69323', lat:'-40.35440', zoom:'21'},
-		id:"a"
-	},
-	{
-		nome:"Ponto de Onibus",
-		coords:{lon:'-3.69364', lat:'-40.35565', zoom:'21'},
-		id:"b"
-	},
-	{
-		nome:"Biblioteca",
-		coords:{lon:'-3.69398', lat:'-40.35429', zoom:'20'},
-		id:"c"
-	},
-	{
-		nome:"Auditorio",
-		coords:{lon:'-3.6931576', lat:'-40.3540371', zoom:'20.48'},
-		id:"d"
-	},
-	{
-		nome:"Secretaria da Engenharia da Computação",
-		coords:{lon:'-3.69313943', lat:'-40.354787', zoom:'21.79'},
-		id:"e"
-	},
-	{
-		nome:"Secretaria da Engenharia Eletrica",
-		coords:{lon:'-3.6931199', lat:'-40.3547678', zoom:'22'},
-		id:"f"
-	},
-	{
-		nome:"Banheiros",
-		coords:{lon:'-3.6932016', lat:'-40.35481791', zoom:'22'},
-		id:"g"
-	}
-]
+const locais = require('.././assets/data/locais.json');
 
 export default function BarraDeBusca(props){
 	const [busca, setBusca] = useState('');
@@ -68,9 +31,9 @@ export default function BarraDeBusca(props){
 				lightTheme={true}
 				value={busca} 
 				onSubmitEditing={()=>{
-					for(let lugares = 0; lugares < testedata.length; lugares++){
-						if(testedata[lugares].nome.toLowerCase().includes(busca.toLowerCase())){
-							props.handleLocal(testedata[lugares].coords);
+					for(let lugares = 0; lugares < locais.length; lugares++){
+						if(locais[lugares].nome.toLowerCase().includes(busca.toLowerCase())){
+							props.handleLocal(locais[lugares].coords);
 							break;
 						}
 					}
@@ -81,7 +44,7 @@ export default function BarraDeBusca(props){
 				}} 
 			/>
 			{!!busca && (
-				<FlatList style={estilo.lista__container} data={testedata} renderItem={renderItem} keyExtractor={(item)=>item.id}/>
+				<FlatList style={estilo.lista__container} data={locais} renderItem={renderItem} keyExtractor={(item)=>item.id}/>
 			)}
 		</View>
 	);

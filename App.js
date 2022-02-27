@@ -7,6 +7,7 @@ import Mapa from './screens/Mapa';
 import MapaMed from './screens/MapaMed';
 import HomeScreen from './screens/HomeScreen';
 import QuemSomosNos from './screens/QuemSomosNos';
+import Sigga from './screens/Sigaa/Sigga';
 import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -108,6 +109,16 @@ export default function App() {
             )  
           }}/>
           <Drawer.Screen name="Sobre nós" component={QuemSomosNos}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+                <Icon
+                  name='people-outline'
+                  type='ionicon'
+                  style={css.iconApp}
+                />
+            )  
+          }}/>
+          <Drawer.Screen name="Acessar Sigaa" component={Sigga}
           options={{
             drawerIcon: ({ focused, size }) => (
                 <Icon
