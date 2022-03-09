@@ -55,8 +55,6 @@ const getOldClasses = async (sessionID)=>{
 
 
 export default function PaginaInicial({sessionID, handler}){
-	const [turmaSelecionada, setTurmaSelecionada] = React.useState(true)
-	const [turmas, setTurmas] = React.useState([]);
 	const [renderedTurmas, setRenderedTurmas] = React.useState([]);
 	const [menuOpened, setMenuOpened] = React.useState(false);
 	const [dataMenu, setDataMenu] = React.useState([]);
@@ -82,7 +80,6 @@ export default function PaginaInicial({sessionID, handler}){
 				);
 			})
 
-			setTurmas(ce.getData());
 			setRenderedTurmas(a);
 
 		})();
@@ -97,13 +94,6 @@ export default function PaginaInicial({sessionID, handler}){
 		)
 	}
 
-	function renderItemActualClass({item}){
-		return (
-			<View>
-				<Text>{item}</Text>
-			</View>
-		);
-	}
 
 	return (
 		!menuOpened ? (
@@ -114,48 +104,21 @@ export default function PaginaInicial({sessionID, handler}){
 				
 
 				<View style={estilos.turmasOptions}>
-					{
-						(turmaSelecionada) ? (
-							<View style={estilos.classes}>
-								<FlatList 
-									data={[]}
-									renderItem={renderItemActualClass}
-									ListHeaderComponent={
-										<>
-											<View style={estilos.turmasButton}>
-												<Button title="Exibir turmas anteriores!" onPress={()=>{setTurmaSelecionada(!turmaSelecionada)}}/>
-											</View>
-											<Text style={estilos.turmasButtonText}>Turmas atuais:</Text>
-										</>
-									}
-									ListEmptyComponent={
-										<><Text>Nenhuma turma encontrada!</Text></>
-									}
-								/>
-							</View>
-						) : (
-							<View style={estilos.classes}>
-								<FlatList 
-									data={renderedTurmas} 
-									renderItem={renderItemFunction} 
-									keyExtractor={(item)=>{return item.index}}
-									ListHeaderComponent={
-										<>
-											<View style={estilos.turmasButton}>
-												<Button title="Exibir turmas atuais!" onPress={()=>{setTurmaSelecionada(!turmaSelecionada)}}/>
-											</View>
+					<View style={estilos.classes}>
+						<FlatList 
+							data={renderedTurmas} 
+							renderItem={renderItemFunction} 
+							keyExtractor={(item)=>{return item.index}}
+							
+							ListHeaderComponent={
+								<><Text>TURMAS</Text></>
+							}
 
-											<Text style={estilos.turmasButtonText}>Turmas anteriores:</Text>
-										</>
-									}
-									
-									ListEmptyComponent={
-										<><Text>Nenhuma turma encontrada!</Text></>
-									}
-								/>
-							</View>
-						)
-					}
+							ListEmptyComponent={
+								<><Text>Nenhuma turma encontrada!</Text></>
+							}
+						/>
+					</View>
 				</View>
 			</View>
 		) : (

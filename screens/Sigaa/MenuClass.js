@@ -22,7 +22,7 @@ const estilo = {
 	},
 	textTitle:{
 		fontSize:15,
-		lineHeight:45,
+		lineHeight:25,
 	},
 	menuContainer:{
 		
