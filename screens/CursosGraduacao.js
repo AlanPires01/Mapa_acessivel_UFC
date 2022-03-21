@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView} from 'react-native';
+import {View, Text,Button, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
 import {css} from '../assets/css/css';
@@ -23,10 +23,12 @@ export default function CursosGraduacao({ navigation }) {
     <ScrollView style={css.container}>
       <Text style={css.titulo}>Cursos de Graduação</Text>  
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setCE(!showCE)} accessibilityState={{checked:showCE}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='search-dollar' type='font-awesome-5'/>
-         <Text onPress={() => setCE(!showCE)} style={css.subtitulo}>Ciências Econômicas</Text>
-      </View>
+         <Text style={css.subtitulo}>Ciências Econômicas</Text>
+        </View>
+      </TouchableOpacity>
       {
       showCE ? (
       <Text style={css.texto}>
@@ -47,10 +49,12 @@ export default function CursosGraduacao({ navigation }) {
 
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setEC(!showEC)} accessibilityState={{checked:showEC}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='desktop' type='font-awesome'/>
-         <Text onPress={() => setEC(!showEC)} style={css.subtitulo}>Engenharia da Computação</Text>
-      </View>
+         <Text style={css.subtitulo}>Engenharia da Computação</Text>
+        </View>
+      </TouchableOpacity>
       {
       showEC ? (
       <Text style={css.texto}>
@@ -70,10 +74,12 @@ export default function CursosGraduacao({ navigation }) {
       ) : null
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setEE(!showEE)} accessibilityState={{checked:showEE}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='cogs' type='font-awesome'/>
-         <Text onPress={() => setEE(!showEE)} style={css.subtitulo}>Engenharia Elétrica</Text>
-      </View>
+         <Text style={css.subtitulo}>Engenharia Elétrica</Text>
+        </View>
+      </TouchableOpacity>
       {
       showEE ? (
       <Text style={css.texto}>
@@ -92,11 +98,13 @@ export default function CursosGraduacao({ navigation }) {
       </Text>
       ) : null
     }
-      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <Divider style={{backgroundColor:'#016EA4', height: 10}}/>
+      <TouchableOpacity onPress={() => setFin(!showFin)} accessibilityState={{checked:showFin}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='coins' type='font-awesome-5'/>
-         <Text onPress={() => setFin(!showFin)} style={css.subtitulo}>Finanças</Text>
-      </View>
+         <Text style={css.subtitulo}>Finanças</Text>
+        </View>
+      </TouchableOpacity>
       {
       showFin ? (
       <Text style={css.texto}>
@@ -116,10 +124,12 @@ export default function CursosGraduacao({ navigation }) {
       ) : null
     }
          <Divider style={{backgroundColor:'#016EA4', height: 10}} />
+         <TouchableOpacity onPress={() => setMedicina(!showMedicina)} accessibilityState={{checked:showMedicina}}>
          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
             <Icon style={css.icon} name='stethoscope' type='font-awesome'/>
-            <Text onPress={() => setMedicina(!showMedicina)} style={css.subtitulo}>Medicina</Text>
+            <Text style={css.subtitulo}>Medicina</Text>
          </View>
+         </TouchableOpacity>
       {
       showMedicina ? (
       <Text style={css.texto}>
@@ -139,10 +149,12 @@ export default function CursosGraduacao({ navigation }) {
       ) : null
     }
        <Divider style={{backgroundColor:'#016EA4', height: 10}}/>
-       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+       <TouchableOpacity onPress={() => setMusica(!showMusica)} accessibilityState={{checked:showMusica}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='music' type='font-awesome'/>
-         <Text onPress={() => setMusica(!showMusica)} style={css.subtitulo}>Música</Text>
-      </View>
+         <Text style={css.subtitulo}>Música</Text>
+        </View>
+       </TouchableOpacity>
       {
       showMusica ? (
       <Text style={css.texto}>
@@ -162,10 +174,12 @@ export default function CursosGraduacao({ navigation }) {
       ) : null
     }
        <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+       <TouchableOpacity onPress={() => setOdonto(!showOdonto)} accessibilityState={{checked:showOdonto}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='tooth' type='font-awesome-5'/>
-         <Text onPress={() => setOdonto(!showOdonto)} style={css.subtitulo}>Odontologia</Text>
-      </View>
+         <Text style={css.subtitulo}>Odontologia</Text>
+        </View>
+       </TouchableOpacity>
       {
       showOdonto ? (
       <Text style={css.texto}>
@@ -185,10 +199,12 @@ export default function CursosGraduacao({ navigation }) {
       ) : null
     }
        <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+       <TouchableOpacity onPress={() => setPsicologia(!showPsicologia)} accessibilityState={{checked:showPsicologia}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='brain' type='font-awesome-5'/>
-         <Text onPress={() => setPsicologia(!showPsicologia)} style={css.subtitulo}>Psicologia</Text>
-      </View>
+         <Text style={css.subtitulo}>Psicologia</Text>
+        </View>
+       </TouchableOpacity>
       {
       showPsicologia ? (
       <Text style={css.texto}>

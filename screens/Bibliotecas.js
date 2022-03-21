@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView} from 'react-native';
+import {View, Text,Button, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
 import {css} from '../assets/css/css';
@@ -19,10 +19,12 @@ export default function Bibliotecas({ navigation }) {
           Instituição e da sociedade. {'\n'}
       </Paragraph>  
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setBiblioteca(!showBiblioteca)} accessibilityState={{checked:showBiblioteca}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='book' type='font-awesome-5'/>
-         <Text onPress={() => setBiblioteca(!showBiblioteca)} style={css.subtitulo}>Biblioteca do Campus de Sobral</Text>
-      </View>
+         <Text style={css.subtitulo}>Biblioteca do Campus de Sobral</Text>
+       </View>
+      </TouchableOpacity>
       {
       showBiblioteca ? (
       <Text style={css.texto}>
@@ -48,10 +50,12 @@ export default function Bibliotecas({ navigation }) {
 
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setBibliotecaMed(!showBibliotecaMed)} accessibilityState={{checked:showBibliotecaMed}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='book-medical' type='font-awesome-5'/>
-         <Text onPress={() => setBibliotecaMed(!showBibliotecaMed)} style={css.subtitulo}>Biblioteca do Curso de Medicina</Text>
-      </View>
+         <Text style={css.subtitulo}>Biblioteca do Curso de Medicina</Text>
+       </View>
+      </TouchableOpacity>
       {
       showBibliotecaMed ? (
       <Text style={css.texto}>

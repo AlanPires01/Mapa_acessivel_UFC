@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView} from 'react-native';
+import {View, Text,Button, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
 import {css} from '../assets/css/css';
@@ -20,10 +20,12 @@ export default function CursosPosGraduacao({ navigation }) {
     <ScrollView style={css.container}>
       <Text style={css.titulo}>Cursos de Pós-Graduação</Text>  
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setRMed(!showRMed)} accessibilityState={{checked:showRMed}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='clinic-medical' type='font-awesome-5'/>
-         <Text onPress={() => setRMed(!showRMed)} style={css.subtitulo}>Residências Médicas</Text>
-      </View>
+         <Text style={css.subtitulo}>Residências Médicas</Text>
+       </View>
+      </TouchableOpacity>
       {
       showRMed ? (
       <Text style={css.texto}>
@@ -38,10 +40,12 @@ export default function CursosPosGraduacao({ navigation }) {
 
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setBio(!showBio)} accessibilityState={{checked:showBio}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='dna' type='font-awesome-5'/>
-         <Text onPress={() => setBio(!showBio)} style={css.subtitulo}>Mestrado em Biotecnologia</Text>
-      </View>
+         <Text style={css.subtitulo}>Mestrado em Biotecnologia</Text>
+       </View>
+      </TouchableOpacity>
       {
       showBio ? (
       <Text style={css.texto}>
@@ -59,10 +63,12 @@ export default function CursosPosGraduacao({ navigation }) {
       ) : null
     }
      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setCSaude(!showCSaude)} accessibilityState={{checked:showCSaude}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='hand-holding-medical' type='font-awesome-5'/>
-         <Text onPress={() => setCSaude(!showCSaude)} style={css.subtitulo}>Me. em Ciências da Saúde</Text>
-      </View>
+         <Text style={css.subtitulo}>Me. em Ciências da Saúde</Text>
+       </View>
+      </TouchableOpacity>
       {
       showCSaude ? (
       <Text style={css.texto}>
@@ -79,10 +85,12 @@ export default function CursosPosGraduacao({ navigation }) {
       ) : null
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setFSaude(!showFSaude)} accessibilityState={{checked:showFSaude}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='heartbeat' type='font-awesome-5'/>
-         <Text onPress={() => setFSaude(!showFSaude)} style={css.subtitulo}>Me. em Saúde da família</Text>
-      </View>
+         <Text style={css.subtitulo}>Me. em Saúde da família</Text>
+       </View>
+      </TouchableOpacity>
       {
       showFSaude ? (
       <Text style={css.texto}>
@@ -100,10 +108,12 @@ export default function CursosPosGraduacao({ navigation }) {
       ) : null
     }
      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setEngEC(!showEngEC)} accessibilityState={{checked:showEngEC}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='laptop' type='font-awesome'/>
-         <Text onPress={() => setEngEC(!showEngEC)} style={css.subtitulo}>Me. em Engenharia Elétrica e Computação</Text>
-      </View>
+         <Text style={css.subtitulo}>Me. em Engenharia Elétrica e Computação</Text>
+        </View>
+      </TouchableOpacity>
       {
       showEngEC ? (
       <Text style={css.texto}>
@@ -121,10 +131,12 @@ export default function CursosPosGraduacao({ navigation }) {
       ) : null
     }
      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
+      <TouchableOpacity onPress={() => setPsicologia(!showPsicologia)} accessibilityState={{checked:showPsicologia}}>
        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='brain' type='font-awesome-5'/>
-         <Text onPress={() => setPsicologia(!showPsicologia)} style={css.subtitulo}>Mestrado Profissional em Psicologia e Políticas Públicas</Text>
-      </View>
+         <Text style={css.subtitulo}>Mestrado Profissional em Psicologia e Políticas Públicas</Text>
+       </View>
+      </TouchableOpacity>
       {
       showPsicologia ? (
       <Text style={css.texto}>

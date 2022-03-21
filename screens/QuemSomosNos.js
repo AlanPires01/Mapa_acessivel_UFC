@@ -14,7 +14,7 @@ export default function QuemSomosNos({ navigation }) {
     <ScrollView style={css.container}>
       <Text style={css.titulo}>Quem somos ?</Text>
       <Divider style={{backgroundColor:'#016EA4', height: 10}}/>
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <View accessible={true} accessibilityHint="Pressione para exibir informações sobre os desenvolvedores" accessibilityState={{checked:showDev}} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='dev' type='font-awesome-5'/>
          <Text onPress={() => setDev(!showDev)} style={css.subtitulo}>Desenvolvedores</Text>
       </View>
@@ -35,13 +35,13 @@ export default function QuemSomosNos({ navigation }) {
       ) : null
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}}/>
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <View accessible={true} accessibilityHint="Pressione para exibir informações sobre o grupo TAE" accessibilityState={{checked:showTAE}} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='users' type='font-awesome-5'/>
          <Text onPress={() => setTAE(!showTAE)} style={css.subtitulo}>Grupo TAE</Text>
       </View>
        { showTAE ? (
       <View>
-          <Paragraph style={css.texto}>         O Grupo de Tecnologias Assisistivas e Educacionais(TAE) da Universidade Federal do Ceará (UFC) é um grupo de pesquisa e extensão do Campus Sobral que possui três grandes eixos de atuação: 
+          <Paragraph style={css.texto}>         O Grupo de Tecnologias Assistivas e Educacionais(TAE) da Universidade Federal do Ceará (UFC) é um grupo de pesquisa e extensão do Campus Sobral que possui três grandes eixos de atuação: 
             Tecnologias Assistivas (TA) para pessoas com deficiência (PcD), tecnologias ligadas a educação e tecnologias ligadas a saúde.
          </Paragraph>
          <Paragraph style={css.texto}>          O TAE foi criado em 2016 e atualmente conta com integrantes dos cursos Curso de Engenharia da Computação, Engenharia Elétrica e Mestrado em Engenharia Elétrica e de Computação (PPGEEC), 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Button, ScrollView, FlatList,Image, StyleSheet } from 'react-native';
+import {Text, View, Button, ScrollView, FlatList,Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 import { NavigationContainer,DefaultTheme,DarkTheme } from '@react-navigation/native';
 import Contato from './screens/Contato';
@@ -69,9 +69,49 @@ function Mapas() {
 export default function App() {
   return (
     <NavigationContainer>
-
       <Drawer.Navigator 
-       screenOptions={opcoes} 
+       screenOptions={
+        {
+          headerStyle:{
+            backgroundColor:'#016EA4',
+          },
+          headerTitleAlign:'center',
+          headerTitleStyle:{
+            color:'#FFFFFF',
+          },
+          headerTintColor:'#FFFFFF',
+          header:(props)=>{
+            return (
+              <View style={{
+                  height:92,
+                  backgroundColor: "#016EA4",
+                }}>
+                <View style={{
+                  flex:1, 
+                  flexDirection:'row', 
+                  alignItems:'flex-end', 
+                  justifyContent:'center',
+                  padding:10
+                }}>
+                  <View style={{
+                    position:"absolute",
+                    left:0,
+                    bottom:0,
+                  }}>
+                    <TouchableOpacity accessible={true} accessibilityLabel="Menu Lateral" accessibilityRole={"button"} onPress={()=>{props.navigation.openDrawer()}}>
+                      <Icon color="white" name='menu-outline' type='ionicon' style={css.iconApp}/>
+                    </TouchableOpacity>
+                  </View>
+                  <View accessible={true} accessibilityRole={'header'}>
+                    <Text style={{color:"white", fontSize:20, fontWeight:'bold'}}>{props.route.name}</Text>
+                  </View>
+                </View>
+              </View>
+            )
+          }
+        }
+       }
+
        initialRouteName="Home" 
        drawerContent={(props) => <CustomDrawer {...props}/>} >
         <Drawer.Screen name="Home" component={HomeScreen}
@@ -82,9 +122,7 @@ export default function App() {
                   type='ionicon'
                   style={css.iconApp}
                 />
-
             ) 
-
           }}
          />
           <Drawer.Screen name="Mapas" component={Mapas}
@@ -122,7 +160,7 @@ export default function App() {
           options={{
             drawerIcon: ({ focused, size }) => (
                 <Icon
-                  name='people-outline'
+                  name='desktop-outline'
                   type='ionicon'
                   style={css.iconApp}
                 />

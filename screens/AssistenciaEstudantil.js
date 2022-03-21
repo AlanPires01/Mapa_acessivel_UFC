@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView} from 'react-native';
+import {View, Text,Button, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
 import {css} from '../assets/css/css';
@@ -27,10 +27,12 @@ export default function AssistenciaEstudantil({ navigation }) {
         <Paragraph>          Atualmente, no campus de Sobral há a concessão de auxílios nas seguintes modalidades:</Paragraph>
       </Text>  
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setMoradia(!showMoradia)} accessibilityState={{checked:showMoradia}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='house-user' type='font-awesome-5'/>
-         <Text onPress={() => setMoradia(!showMoradia)} style={css.subtitulo}>Auxilio Moradia</Text>
-      </View>
+         <Text style={css.subtitulo}>Auxilio Moradia</Text>
+       </View>
+      </TouchableOpacity>
       {
       showMoradia ? (
       <Text style={css.texto}>
@@ -43,10 +45,12 @@ export default function AssistenciaEstudantil({ navigation }) {
 
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
+      <TouchableOpacity onPress={() => setBia(!showBia)} accessibilityState={{checked:showBia}}>
+       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='microscope' type='font-awesome-5'/>
-         <Text onPress={() => setBia(!showBia)} style={css.subtitulo}>Bolsa de Iniciação Acadêmica</Text>
-      </View>
+         <Text style={css.subtitulo}>Bolsa de Iniciação Acadêmica</Text>
+       </View>
+      </TouchableOpacity>
       {
       showBia ? (
       <Text style={css.texto}>
@@ -57,10 +61,12 @@ export default function AssistenciaEstudantil({ navigation }) {
       ) : null
     }
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
+      <TouchableOpacity onPress={() => setEmergencial(!showEmergencial)} accessibilityState={{checked:showEmergencial}}>
        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={css.icon} name='hand-holding-usd' type='font-awesome-5'/>
-         <Text onPress={() => setEmergencial(!showEmergencial)} style={css.subtitulo}>Auxílio Emergencial</Text>
-      </View>
+         <Text style={css.subtitulo}>Auxílio Emergencial</Text>
+       </View>
+      </TouchableOpacity>
       {
       showEmergencial ? (
       <Text style={css.texto}>
@@ -71,11 +77,13 @@ export default function AssistenciaEstudantil({ navigation }) {
   </Text>
       ) : null
     }
-     <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'flex-start' }}>
+      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
+      <TouchableOpacity onPress={() => setServSocial(!showServSocial)} accessibilityState={{checked:showServSocial}}>
+       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'flex-start' }}>
          <Icon style={css.icon} name='users' type='font-awesome-5'/>
-         <Text onPress={() => setServSocial(!showServSocial)} style={css.subtitulo}>Serviço Social do Campus de Sobral</Text>
-      </View>
+         <Text style={css.subtitulo}>Serviço Social do Campus de Sobral</Text>
+       </View>
+      </TouchableOpacity>
       {
       showServSocial ? (
       <Text style={css.texto}>
@@ -96,9 +104,9 @@ export default function AssistenciaEstudantil({ navigation }) {
       ) : null
     }
      <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-       <View style={css.botao}>
-          <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"/>
-      </View>
+     <View style={css.botao}>
+      <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"/>
+     </View>
 	</ScrollView>
   );
 }
