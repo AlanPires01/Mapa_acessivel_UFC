@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Button, FlatList} from 'react-native';
-import {OldClassesExtract} from './Sigaa-utils.js';
+import {OldClassesExtract, GetHeaders} from './Sigaa-utils.js';
 import Menu from './MenuClass.js';
 
 let estilos = {
@@ -13,14 +13,16 @@ let estilos = {
 	turmasOptions:{
 	},
 	paginaInicialContainer:{
-		position:'relative'
+		position:'relative',
+		padding:10,
 	},
 	turmasButtonText:{
-		fontSize:20,
-		fontWeight:'bold'
+		fontSize:15,
 	},
 	turmasButton:{
-		width:'80%'
+		padding:10,
+		paddingVertical:30,
+		margin:4
 	},
 	logOffButtonContainer:{
 		position:'absolute',
@@ -31,28 +33,19 @@ let estilos = {
 	semestre:{
 		marginBottom:20
 	},
-	classes:{
-	},
+	
 };
 
-const getOldClasses = async (sessionID)=>{
+const getAllClasses = async (sessionID)=>{
 	const response = await fetch("https://si3.ufc.br/sigaa/portais/discente/turmas.jsf", {
 		method:"get",
-		headers:{
-			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-			"Accept-Encoding": "gzip, deflate, br",
-			"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-			"Cache-Control": "max-age=0",
-			"Connection": "keep-alive",
-			"Cookie": `JSESSIONID=${sessionID}`,
-			"Host": "si3.ufc.br",
-			"Origin": "https://si3.ufc.br"
-		}
+		headers:GetHeaders(sessionID)
 	})
 	const text = await response.text();
 	return text;
 }
 
+const ClassExtractor = new OldClassesExtract;
 
 export default function PaginaInicial({sessionID, handler}){
 	const [renderedTurmas, setRenderedTurmas] = React.useState([]);
@@ -61,20 +54,38 @@ export default function PaginaInicial({sessionID, handler}){
 
 	React.useEffect(()=>{
 		(async()=>{
-			const text = await getOldClasses(sessionID);
-			const ce = new OldClassesExtract;
-			ce.updateData(text);
+			const text = await getAllClasses(sessionID);
+			
+			ClassExtractor.updateData(text);
+			
+			let extractedClasses = ClassExtractor.getData();
+			let semestres = Object.keys(extractedClasses);
 
-			const a = Object.keys(ce.getData()).map((semestre, index)=>{
-				let components = ce.getData()[semestre].map((e,i)=>{
-					return (<TouchableOpacity key={i} onPress={()=>{
-						setMenuOpened(true);
-						setDataMenu([e]);
-					}}><Text style={i%2==0?estilos.odd:estilos.even}>{e.codigo} - {e.disciplina}({e.turma}) - {e.creditos}</Text></TouchableOpacity>);
+			const a = semestres.map((semestre, index)=>{
+
+				let components = extractedClasses[semestre].map((classeAtual,indice)=>{
+					return (
+						<TouchableOpacity 
+							key={classeAtual.codigo + semestre}
+							onPress={()=>{
+								setMenuOpened(true);
+								setDataMenu([classeAtual]);}
+							} 
+							style={[indice%2==0?estilos.odd:estilos.even, estilos.turmasButton]}
+							accessible={true}
+							accessibilityLabel={`${classeAtual.disciplina} no semestre ${semestre}`}
+							>
+
+							<Text style={estilos.turmasButtonText}>
+								{classeAtual.disciplina} - {classeAtual.codigo} ({classeAtual.turma})
+							</Text>
+						</TouchableOpacity>
+						);
 				});
+
 				return (
-					<View key={index}>
-						<Text>Semestre: {semestre}</Text>
+					<View key={index + semestre}>
+						<Text style={{fontSize:20}}>SEMESTRE {semestre}</Text>
 						<View>{components}</View>
 					</View>
 				);
@@ -108,14 +119,14 @@ export default function PaginaInicial({sessionID, handler}){
 						<FlatList 
 							data={renderedTurmas} 
 							renderItem={renderItemFunction} 
-							keyExtractor={(item)=>{return item.index}}
+							
 							
 							ListHeaderComponent={
 								<><Text>TURMAS</Text></>
 							}
 
 							ListEmptyComponent={
-								<><Text>Nenhuma turma encontrada!</Text></>
+								<><Text>Procurando turmas...</Text></>
 							}
 						/>
 					</View>

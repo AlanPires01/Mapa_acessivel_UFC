@@ -1,37 +1,33 @@
 import React from 'react';
 import {View, Text, Button, FlatList} from 'react-native';
 
-import {GradesExtract} from './Sigaa-utils.js';
+import {GradesExtract, GetHeaders} from './Sigaa-utils.js';
+
+const estilo = {
+	gradesContainer: {
+		padding:10
+	}
+}
 
 const getGrades = async (sessionID, payload) => {
 	const response = await fetch("https://si3.ufc.br/sigaa/ava/index.jsf", {
 		method: "post",
-		headers:{
-			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-			"Accept-Encoding": "gzip, deflate, br",
-			"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-			"Cache-Control": "max-age=0",
-			"Connection": "keep-alive",
-			"Content-Type": "application/x-www-form-urlencoded",
-			"Cookie": `JSESSIONID=${sessionID}`,
-			"Host": "si3.ufc.br",
-			"Origin": "https://si3.ufc.br"
-		},
+		headers:GetHeaders(sessionID),
 		body: payload
 	});
-	const text = await response.text();
-	return text;
+	const responseText = await response.text();
+	return responseText;
 }
+
+const GradesExtractor = new GradesExtract;
 
 export default function Notas({sessionID, disciplina, handler}){
 	const [grades, setGrades] = React.useState([]);
 	React.useEffect(()=>{
 		(async()=>{
 			const text = await getGrades(sessionID, disciplina.payload);
-			let a = new GradesExtract;
-			a.updateData(text);
-			setGrades([a.getData()]);
-			console.log(a.getData());
+			GradesExtractor.updateData(text);
+			setGrades([GradesExtractor.getData()]);
 		})();
 
 	},[]);
@@ -46,7 +42,7 @@ export default function Notas({sessionID, disciplina, handler}){
 		);
 	}
 	return (
-		<View>
+		<View style={estilo.gradesContainer}>
 			<Button onPress={()=>{
 							handler(true)
 						}} title="Voltar"/>

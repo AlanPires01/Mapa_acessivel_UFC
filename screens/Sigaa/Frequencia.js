@@ -1,30 +1,25 @@
 import React from 'react';
 import {View, Text, Button, FlatList} from 'react-native';
-import {FrequencyExtract} from './Sigaa-utils.js';
+import {FrequencyExtract, GetHeaders} from './Sigaa-utils.js';
 
 
 const estilo = {
-
+	frequencyContainer:{
+		padding:10
+	}
 }
+
+
+const FrequencyExtractor = new FrequencyExtract;
 
 const getFrequency = async (sessionID, payload) => {
 	const response = await fetch("https://si3.ufc.br/sigaa/ava/index.jsf", {
 		method: "post",
-		headers:{
-			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-			"Accept-Encoding": "gzip, deflate, br",
-			"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-			"Cache-Control": "max-age=0",
-			"Connection": "keep-alive",
-			"Content-Type": "application/x-www-form-urlencoded",
-			"Cookie": `JSESSIONID=${sessionID}`,
-			"Host": "si3.ufc.br",
-			"Origin": "https://si3.ufc.br"
-		},
+		headers: GetHeaders(sessionID),
 		body: payload
 	});
-	const text = await response.text();
-	return text;
+	const responseText = await response.text();
+	return responseText;
 }
 
 export default function Frequencia({sessionID, disciplina, handler}){
@@ -33,9 +28,8 @@ export default function Frequencia({sessionID, disciplina, handler}){
 	React.useEffect(()=>{
 		(async()=>{
 			const text = await getFrequency(sessionID, disciplina.payload);
-			let a = new FrequencyExtract;
-			a.updateData(text);
-			setFaltas([a.getData()]);
+			FrequencyExtractor.updateData(text);
+			setFaltas([FrequencyExtractor.getData()]);
 		})();
 
 	},[]);
@@ -48,7 +42,7 @@ export default function Frequencia({sessionID, disciplina, handler}){
 		)
 	}
 	return (
-		<View>
+		<View style={estilo.frequencyContainer}>
 			<FlatList
 				ListHeaderComponent={
 					<>

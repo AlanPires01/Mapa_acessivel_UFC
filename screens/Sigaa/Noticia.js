@@ -1,6 +1,13 @@
 import React from "react";
 import {Button, View, Text, ScrollView, TouchableOpacity} from "react-native";
-import {NewsListExtract, NewsExtract} from "./Sigaa-utils.js";
+import {NewsListExtract, NewsExtract, GetHeaders} from "./Sigaa-utils.js";
+
+function convertDataToText(data){
+	if(data === "") return "";
+	const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+	const a = data.split("/");
+	return `Dia ${a[0]} de ${meses[a[1]-1]} de ${a[2]}}`;
+}
 
 const estilo = {
 	labelText:{
@@ -18,11 +25,15 @@ const estilo = {
 	button:{
 		paddingVertical:10,
 		marginVertical: 2,
-		paddingLeft: 4,
-		backgroundColor: '#ffe'
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: '#ffe',
+		borderWidth: 1,
+		borderColor: '#aaa'
 	},
 	newsListContainer:{
-		paddingBottom: 70
+		paddingBottom: 90,
+		padding: 10
 	},
 	textTitle:{
 		fontSize:20,
@@ -31,8 +42,11 @@ const estilo = {
 	}
 }
 
+const NewsListExtractor = new NewsListExtract;
+const NewsExtractor = new NewsExtract;
+
 export default function Noticia({sessionID, handler, disciplina}){
-	const [news, setNews] = React.useState([]);
+	const [newsListComponents, setNews] = React.useState([]);
 	const [selectedNews, setSelectedNews] = React.useState([]);
 	const [showingNews, setShowingNews] = React.useState(true);
 
@@ -41,36 +55,37 @@ export default function Noticia({sessionID, handler, disciplina}){
 		(async()=>{
 			const response = await fetch("https://si3.ufc.br/sigaa/ava/index.jsf", {
 				method: "post",
-				headers:{
-					"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-					"Accept-Encoding": "gzip, deflate, br",
-					"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-					"Cache-Control": "max-age=0",
-					"Connection": "keep-alive",
-					"Content-Type": "application/x-www-form-urlencoded",
-					"Cookie": `JSESSIONID=${sessionID}`,
-					"Host": "si3.ufc.br",
-					"Origin": "https://si3.ufc.br"
-				},
+				headers:GetHeaders(sessionID),
 				body: disciplina.payload
 			});
-			const text = await response.text();
-			let nle = new NewsListExtract;
-			nle.updateData(text);
-
+			const responseText = await response.text();
 			
-			const a = nle.getData().map(e=>{
+			NewsListExtractor.updateData(responseText);
+
+
+			const Noticias = NewsListExtractor.getData();
+			const NoticiasComponents = Noticias.map(e=>{
+				if(e.data === "" || e.titulo === "") return
 				return (
-					<TouchableOpacity style={estilo.button} onPress={async ()=>{
-						setShowingNews(false);
-						await getNews(e.payload);
-					}} key={e.payload}>
-						<Text>{e.titulo} - {e.data}</Text>
+					<TouchableOpacity 
+						style={estilo.button} 
+						onPress={async ()=>{
+							setShowingNews(false);
+							await getNews(e.payload);
+						}} 
+						key={e.payload + e.data + e.titulo}
+						accessible={true}
+						accessibilityLabel={`${e.titulo} ${convertDataToText(e.data)}`}
+						accessibilityHint={"Selecionar para ver a noticia"}
+					>
+						<Text>{e.titulo}</Text>
+						<Text style={{alignSelf:"flex-end", color:"grey"}}>{e.data}</Text>
 					</TouchableOpacity>
 				);
 			});
 			
-			setNews(a);
+			setNews(NoticiasComponents);
+
 		})();
 			
 	}, []);
@@ -78,23 +93,13 @@ export default function Noticia({sessionID, handler, disciplina}){
 	async function getNews(payload){
 		const response = await fetch("https://si3.ufc.br/sigaa/ava/NoticiaTurma/listar.jsf", {
 			method: "post",
-			headers:{
-				"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-				"Accept-Encoding": "gzip, deflate, br",
-				"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-				"Cache-Control": "max-age=0",
-				"Connection": "keep-alive",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"Cookie": `JSESSIONID=${sessionID}`,
-				"Host": "si3.ufc.br",
-				"Origin": "https://si3.ufc.br"
-			},
+			headers: GetHeaders(sessionID),
 			body:payload
 		});
-		const text = await response.text();
-		let a = new NewsExtract;
-		a.updateData(text);
-		setSelectedNews([a.getData()]);
+		const responseText = await response.text();
+		
+		NewsExtractor.updateData(responseText);
+		setSelectedNews([NewsExtractor.getData()]);
 	}
 
 	return (
@@ -103,7 +108,7 @@ export default function Noticia({sessionID, handler, disciplina}){
 					<Button title='Voltar' onPress={()=>{handler(true)}}/>
 					<Text style={estilo.textTitle}>Notícias:</Text>
 					<ScrollView>
-						{news}
+						{newsListComponents}
 					</ScrollView>
 				</View>
 			) : (
@@ -116,10 +121,11 @@ function News({handler, data}){
 	return (
 		<ScrollView	 style={estilo.container}>
 			<Button onPress={()=>{handler(true)}} title="Voltar"/>
-			<Text style={estilo.text}><Text style={estilo.labelText}>Titulo: </Text>{(data?.[0]?.titulo) ?? ''}</Text>
-			<Text style={estilo.text}><Text style={estilo.labelText}>Data: </Text>{(data?.[0]?.data) ?? ''}</Text>
-			<Text style={estilo.text}><Text style={estilo.labelText}>Texto: </Text>{(data?.[0]?.texto) ?? ''}</Text>
+			<Text style={estilo.text}><Text style={estilo.labelText}>TITULO: </Text>{(data?.[0]?.titulo) ?? ''}</Text>
+			<Text style={estilo.text}><Text style={estilo.labelText}>DATA: </Text>{(data?.[0]?.data) ?? ''}</Text>
+			<Text style={estilo.text}><Text style={estilo.labelText}>TEXTO: </Text>{(data?.[0]?.texto) ?? ''}</Text>
 		</ScrollView>
 
 	)
 }
+

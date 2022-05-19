@@ -280,4 +280,18 @@ const getNewSessionID = async () => {
 	return sessionID;
 }
 
-export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, logIN, acessarPaginaInicial, getNewSessionID};
+function GetHeaders(sessionID){
+	return {
+		"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+		"Accept-Encoding": "gzip, deflate, br",
+		"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+		"Cache-Control": "max-age=0",
+		"Connection": "keep-alive",
+		"Content-Type": "application/x-www-form-urlencoded",
+		"Cookie": `JSESSIONID=${sessionID}`,
+		"Host": "si3.ufc.br",
+		"Origin": "https://si3.ufc.br"
+	};
+}
+
+export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders};

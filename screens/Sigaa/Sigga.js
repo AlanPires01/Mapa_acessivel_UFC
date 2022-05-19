@@ -98,7 +98,7 @@ export default function Sigga(){
 	return (
 		!loginState ? (
 			<View style={estilos.container}>
-				<Text style={estilos.text}> SIGAA </Text>
+				<Text accessible={false} style={estilos.text}> SIGAA </Text>
 				<View style={estilos.inputContainer}>
 					<TextInput style={estilos.input} onChangeText={(e)=>setUser(e)} placeholder={'Usuário'}/>
 					<TextInput style={estilos.input} onChangeText={(e)=>setSenha(e)} placeholder={'Senha'}/>
