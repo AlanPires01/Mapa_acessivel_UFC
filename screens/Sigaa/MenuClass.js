@@ -4,6 +4,7 @@ import {PrincipalExtract, GetHeaders} from "./Sigaa-utils.js";
 import Noticia from './Noticia.js';
 import Frequencia from './Frequencia.js';
 import Notas from './Notas.js';
+import Tarefas from "./Tarefas.js";
 
 const estilo = {
 	menuButton:{
@@ -52,7 +53,7 @@ export default function Menu({handler, data, sessionID}){
 			PrincipalExtractor.updateData(responseText);
 
 			let menuList = PrincipalExtractor.getData().filter(e=>{
-				return e.menu === "Notícias" || e.menu === "Frequência" || e.menu === "Ver Notas";
+				return e.menu === "Notícias" || e.menu === "Frequência" || e.menu === "Ver Notas" || e.menu === "Tarefas";
 			});
 			setMenuData(menuList);
 		})();
@@ -84,6 +85,9 @@ export default function Menu({handler, data, sessionID}){
 		}
 		if(disciplina.menu === "Ver Notas"){
 			return <Notas sessionID={sessionID} disciplina={disciplina} handler={handler}/>
+		}
+		if(disciplina.menu === "Tarefas"){
+			return <Tarefas sessionID={sessionID} disciplina={disciplina} handler={handler}/>
 		}
 		return <View><Button title="Voltar" onPress={()=>{setOption(true)}}/></View>
 	}

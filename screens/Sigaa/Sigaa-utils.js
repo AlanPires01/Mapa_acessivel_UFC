@@ -219,6 +219,39 @@ class GradesExtract extends ExtractHTML{
 	}
 }
 
+class WorkExtract extends ExtractHTML{
+	constructor(){
+		super();
+	}
+	updateData(text){
+		this.rawData = text;
+		const root = parse(text);
+		const tbody = root.querySelectorAll(".listing > tbody tr");
+		
+		const tarefas = [];
+
+		for(let i = 0; i < tbody.length; i++){
+			let tds = tbody[i].querySelectorAll("td");
+			const tarefa = tds.map(e=>{
+				return e.structuredText;
+			})
+			if(tarefa.length > 5){
+				tarefas.push({
+					titulo: tarefa[0],
+					periodo: tarefa[1],
+					emGrupo: tarefa[2].replace(" ", ""),
+					notaMax: tarefa[3],
+					envios: tarefa[4]
+				})
+			}
+		}
+		
+		this.data = {
+			tarefas
+		};
+	}
+}
+
 const urls = {
 	sitePrincipal: "https://si3.ufc.br/sigaa/",
 	login: "https://si3.ufc.br/sigaa/logar.do?dispatch=logOn"
@@ -294,4 +327,4 @@ function GetHeaders(sessionID){
 	};
 }
 
-export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders};
+export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders};
