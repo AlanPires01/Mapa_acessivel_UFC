@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, View, FlatList, Text} from "react-native";
-import { GetHeaders, WorkExtract } from "./Sigaa-utils";
+import { GetHeaders, WorkExtract, convertDataToText} from "./Sigaa-utils";
 
 
 const estilos = {
@@ -18,6 +18,12 @@ const estilos = {
         color:"black",
         marginBottom: 4,
         fontWeight:'bold',
+    },
+    tarefaEnviada: {
+        backgroundColor: "#dfd"
+    },
+    tarefaNaoEnviada: {
+        backgroundColor: "#fdd"
     }
 }
 
@@ -50,9 +56,13 @@ export default function Tarefas({sessionID, handler, disciplina}){
     const renderItem = ({item}) =>{
         
         return (
-            <View style={estilos.tarefa}>
+            <View 
+                style={[estilos.tarefa, item.tarefaEnviada?estilos.tarefaEnviada:estilos.tarefaNaoEnviada]}
+                accessible={true}
+                accessibilityLabel={`Tarefa ${item.titulo} Periodo de entrega de ${convertDataToText(item.periodo.de.data)} até ${convertDataToText(item.periodo.para.data)} ${item.tarefaEnviada?"Você já enviou essa tarefa": "Você ainda não enviou essa tarefa"}`}    
+            >
                 <Text style={estilos.tarefaTitle}>{item.titulo}</Text>
-                <Text>Periodo: {item.periodo}</Text>
+                <Text>Periodo: {item.periodo.msg}</Text>
                 <View style={{flex:1, flexDirection:"row", justifyContent: "space-between"}}>
                     <Text>Em grupo: {item.emGrupo}</Text>
                     <Text>Envios: {item.envios}</Text>
@@ -76,7 +86,7 @@ export default function Tarefas({sessionID, handler, disciplina}){
             
                 renderItem={renderItem} 
                 data={tarefas} 
-                keyExtractor={(item)=>{return item.titulo+item.periodo} }/>
+                keyExtractor={(item)=>{return item.titulo+item.periodo.msg} }/>
         </View>
 
     );

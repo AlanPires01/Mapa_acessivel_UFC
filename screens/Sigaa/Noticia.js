@@ -1,13 +1,6 @@
 import React from "react";
 import {Button, View, Text, ScrollView, TouchableOpacity} from "react-native";
-import {NewsListExtract, NewsExtract, GetHeaders} from "./Sigaa-utils.js";
-
-function convertDataToText(data){
-	if(data === "") return "";
-	const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-	const a = data.split("/");
-	return `Dia ${a[0]} de ${meses[a[1]-1]} de ${a[2]}}`;
-}
+import {NewsListExtract, NewsExtract, GetHeaders, convertDataToText} from "./Sigaa-utils.js";
 
 const estilo = {
 	labelText:{

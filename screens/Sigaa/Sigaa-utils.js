@@ -226,6 +226,8 @@ class WorkExtract extends ExtractHTML{
 	updateData(text){
 		this.rawData = text;
 		const root = parse(text);
+
+		/* Lista de tarefas */
 		const tbody = root.querySelectorAll(".listing > tbody tr");
 		
 		const tarefas = [];
@@ -233,16 +235,32 @@ class WorkExtract extends ExtractHTML{
 		for(let i = 0; i < tbody.length; i++){
 			let tds = tbody[i].querySelectorAll("td");
 			const tarefa = tds.map(e=>{
-				return e.structuredText;
+				let thereIsIcon = e.querySelector("a") !== null;
+				return thereIsIcon ? true : e.structuredText;
 			})
+			
 			if(tarefa.length > 5){
+				
+				let h = tarefa[1].split(" ")
+				let period = {
+					msg: tarefa[1],
+					de: {
+						data: h[2],
+						hora: h[4]
+					},
+					para: {
+						data: h[6],
+						hora: h[8]
+					}
+				}
 				tarefas.push({
 					titulo: tarefa[0],
-					periodo: tarefa[1],
+					periodo: period,
 					emGrupo: tarefa[2].replace(" ", ""),
 					notaMax: tarefa[3],
-					envios: tarefa[4]
-				})
+					envios: tarefa[4],
+					tarefaEnviada: tarefa[6]
+				});
 			}
 		}
 		
@@ -327,4 +345,12 @@ function GetHeaders(sessionID){
 	};
 }
 
-export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders};
+function convertDataToText(data){
+	if(data === "") return "";
+	const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+	const a = data.split("/");
+	let msg = `Dia ${a[0]} de ${meses[a[1]-1]} de ${a[2]}`;
+	return msg;
+}
+
+export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders, convertDataToText};
