@@ -1,3 +1,4 @@
+import { createIconSetFromFontello } from '@expo/vector-icons';
 import {parse} from 'node-html-parser';
 
 class ExtractHTML{
@@ -270,6 +271,91 @@ class WorkExtract extends ExtractHTML{
 	}
 }
 
+class ParticipantsExtract extends ExtractHTML{
+	constructor(){
+		super();
+	}
+	updateData(text){
+		this.rawData = text;
+		const root = parse(text);
+		const ps = root.querySelectorAll("tr");
+		const pp = ps.map(e=>{
+			return e.structuredText;
+		})
+		const alunos = pp.filter((e)=>{
+			return e.includes("Matrícula");
+		})
+		const professores = pp.filter((e)=>{
+			return e.includes("Departamento");
+		})
+		
+		let pSaida = professores.map(e=>{
+			let a = e.split("\n");
+			return {
+				nome: a[0].replace(" ", ""),
+				departamento: a[1].split(":")[1].replace(" ", ""),
+				formacao: a[2].split(":")[1].replace(" ", ""),
+				email: a[3].split(":")[1].replace(" ", ""),
+				turmas: (a[4] !== undefined && a[4].includes("Turma(s)")) ? a[4].split(":")[1].replace(" ", ""): null
+			}
+		})
+		const aSaida = [];
+		
+		
+		for(let indice = 0; indice < alunos.length; indice++){
+			let e = alunos[indice];
+			let a = e.split("\n");
+			if(a.length > 6){
+				let obj1 = null;
+				let obj2 = null
+				if(a.length === 8){
+					obj1 = a.slice(0,4);
+					obj2 = a.slice(4, a.length);
+				}
+				else{
+					obj1 = a.slice(0,5);
+					obj2 = a.slice(5, a.length);
+				}
+				
+
+				aSaida.push({
+					nome: obj1[0].replace(" ", ""),
+					curso: obj1[1].split(":")[1].replace(" ", ""),
+					matricula: obj1[2].split(":")[1].replace(" ", ""),
+					email: obj1[3].split(":")[1].replace(" ", ""),
+					turma: (obj2[4] !== undefined) ? obj2[4].split(":")[1].replace(" ", "") : null
+				})
+				aSaida.push({
+					nome: obj2[0].replace(" ", ""),
+					curso: obj2[1].split(":")[1].replace(" ", ""),
+					matricula: obj2[2].split(":")[1].replace(" ", ""),
+					email: obj2[3].split(":")[1].replace(" ", ""),
+					turma: (obj2[4] !== undefined) ? obj2[4].split(":")[1].replace(" ", "") : null
+				})
+				continue;
+			}
+
+			aSaida.push({
+				nome: a[0].replace(" ", ""),
+				curso: a[1].split(":")[1].replace(" ", ""),
+				matricula: a[2].split(":")[1].replace(" ", ""),
+				email: a[3].split(":")[1].replace(" ", ""),
+				turma: a[4].split(":")[1].replace(" ", "")
+			})
+		}
+			
+			
+		
+		
+		
+		this.data = {
+			professores: pSaida,
+			alunos: aSaida
+		}
+
+	}
+}
+
 const urls = {
 	sitePrincipal: "https://si3.ufc.br/sigaa/",
 	login: "https://si3.ufc.br/sigaa/logar.do?dispatch=logOn"
@@ -353,4 +439,4 @@ function convertDataToText(data){
 	return msg;
 }
 
-export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders, convertDataToText};
+export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, ParticipantsExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders, convertDataToText};
