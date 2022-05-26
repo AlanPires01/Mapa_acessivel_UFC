@@ -20,7 +20,10 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.lincolnmonteiro.Mapa_acessivel_UFC"
+      "package": "com.lincolnmonteiro.Mapa_acessivel_UFC",
+      "permissions": [
+        "RECORD_AUDIO"
+      ]
     }
   }
 }
