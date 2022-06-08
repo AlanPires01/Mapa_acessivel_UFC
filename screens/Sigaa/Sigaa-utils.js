@@ -104,7 +104,22 @@ class PrincipalExtract extends ExtractHTML{
 	updateData(text){
 		this.rawData = text;
 		const root = parse(text);
+		const items = root.querySelectorAll("a");
+		const materiais = items.filter(e=>{
+			let onclk = e.getAttribute("onclick");
+			return onclk?.includes("InserirMaterialArquivo");
+		})
+		
 		const javax = (root.querySelector?.('input[name=javax.faces.ViewState]').getAttribute?.('value')) ?? '';
+
+		const itemsExtract = materiais.map(item => {
+			let c = item.getAttribute?.('onclick').split?.(',');
+			return {
+				nome: item?.structuredText,
+				payload: `formAva=formAva&formAva%3AidTopicoSelecionado=0&javax.faces.ViewState=${javax}&${c[2]}=${c[2]}&id=${c[4]}&key=${c[6].replace("'", "")}`
+			}
+		})
+
 		const barraEsquerda = root.querySelector?.('#barraEsquerda');
 		const menu = barraEsquerda.querySelectorAll?.('a');
 		const links = menu.map(link=>{
@@ -117,10 +132,10 @@ class PrincipalExtract extends ExtractHTML{
 			catch(e){}
 			return {
 				menu: (link?.structuredText.replace?.(" ",'')) ?? '',
-				payload: payload
+				payload: payload,
 			};
 		})
-		this.data = links;
+		this.data = {links, arquivos: itemsExtract};
 	}
 }
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text,Image,ScrollView} from 'react-native';
 import {css} from '../assets/css/css';
-import { Paragraph,Title } from 'react-native-paper';
-
+import { Paragraph,Title, Button } from 'react-native-paper';
 
 export default function HomeScreen({ navigation }) {
+  
   return (
     <ScrollView style={css.container}>
         <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', margin: 2}}>

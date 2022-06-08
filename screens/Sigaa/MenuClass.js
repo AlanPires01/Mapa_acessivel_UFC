@@ -1,11 +1,12 @@
 import React from "react";
-import {View, Text, Button, FlatList, TouchableOpacity} from "react-native";
+import {View, Text, Button, FlatList, TouchableOpacity, Linking} from "react-native";
 import {PrincipalExtract, GetHeaders} from "./Sigaa-utils.js";
 import Noticia from './Noticia.js';
 import Frequencia from './Frequencia.js';
 import Notas from './Notas.js';
 import Tarefas from "./Tarefas.js";
 import Participantes from "./Participantes.js";
+import Arquivos from "./Arquivos.js";
 
 const estilo = {
 	menuButton:{
@@ -52,8 +53,13 @@ export default function Menu({handler, data, sessionID}){
 			});
 			const responseText = await response.text();
 			PrincipalExtractor.updateData(responseText);
-			let menuList = PrincipalExtractor.getData().filter(e=>{
+			let menuList = PrincipalExtractor.getData().links.filter(e=>{
 				return e.menu === "Notícias" || e.menu === "Frequência" || e.menu === "Ver Notas" || e.menu === "Tarefas" || e.menu === "Participantes";
+			});
+			menuList.push({
+				menu: "Arquivos Enviados",
+				payload: "",
+				arquivos: PrincipalExtractor.getData().arquivos
 			});
 			setMenuData(menuList);
 		})();
@@ -91,6 +97,9 @@ export default function Menu({handler, data, sessionID}){
 		}
 		if(disciplina.menu === "Participantes"){
 			return <Participantes sessionID={sessionID} disciplina={disciplina} handler={handler}/>
+		}
+		if(disciplina.menu === "Arquivos Enviados"){
+			return <Arquivos sessionID={sessionID} data={disciplina.arquivos} handler={handler}/>
 		}
 
 		return <View><Button title="Voltar" onPress={()=>{setOption(true)}}/></View>
