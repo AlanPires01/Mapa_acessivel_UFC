@@ -116,7 +116,7 @@ class PrincipalExtract extends ExtractHTML{
 			let c = item.getAttribute?.('onclick').split?.(',');
 			return {
 				nome: item?.structuredText,
-				payload: `formAva=formAva&formAva%3AidTopicoSelecionado=0&javax.faces.ViewState=${javax}&${c[2]}=${c[2]}&id=${c[4]}&key=${c[6]}`
+				payload: `formAva=formAva&formAva%3AidTopicoSelecionado=0&javax.faces.ViewState=${javax}&${c[2]}=${c[2]}&id=${c[4]}&key=${c[6].replace("'", "")}`
 			}
 		})
 

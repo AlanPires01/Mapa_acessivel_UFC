@@ -22,7 +22,9 @@
     "android": {
       "package": "com.lincolnmonteiro.Mapa_acessivel_UFC",
       "permissions": [
-        "RECORD_AUDIO"
+        "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
       ]
     }
   }

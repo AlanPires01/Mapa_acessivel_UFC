@@ -99,7 +99,7 @@ export default function Menu({handler, data, sessionID}){
 			return <Participantes sessionID={sessionID} disciplina={disciplina} handler={handler}/>
 		}
 		if(disciplina.menu === "Arquivos Enviados"){
-			return <Arquivos data={disciplina.arquivos} handler={handler}/>
+			return <Arquivos sessionID={sessionID} data={disciplina.arquivos} handler={handler}/>
 		}
 
 		return <View><Button title="Voltar" onPress={()=>{setOption(true)}}/></View>
