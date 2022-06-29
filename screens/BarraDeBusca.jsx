@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 const locais = require('.././assets/data/locais.json');
 
 export default function BarraDeBusca(props){
 	const [busca, setBusca] = useState('');
-
 	function renderItem({item}){
 		return (
 			item.nome.toLowerCase().includes(busca.toLowerCase()) && (
@@ -22,7 +21,7 @@ export default function BarraDeBusca(props){
 
 	return(
 		<View>
-			<SearchBar 
+			<SearchBar
 				containerStyle={{padding:0}}
 				searchIcon={{color:'white'}}
 				color={'white'}

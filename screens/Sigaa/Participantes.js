@@ -68,7 +68,7 @@ export default function Participantes({sessionID, handler, disciplina}){
 
     function renderProfessores({item}){
         return (
-            <View style={estilos.alunoContainer}>
+            <View style={estilos.alunoContainer} accessible={true}>
                 <Text>{item.nome}</Text>
                 <Text>Departamento: {item.departamento}</Text>
                 <Text>Formação: {item.formacao}</Text>
@@ -80,7 +80,7 @@ export default function Participantes({sessionID, handler, disciplina}){
 
     function renderAlunos({item}){
         return (
-            <View style={estilos.alunoContainer}>
+            <View style={estilos.alunoContainer} accessible={true}>
                 <Text style={{fontWeight:"bold", marginBottom:7}}>{item.nome}</Text>
                 <Text>Matrícula: {item.matricula}</Text>
                 <Text>Curso: {item.curso}</Text>
@@ -94,10 +94,10 @@ export default function Participantes({sessionID, handler, disciplina}){
         <View style={estilos.participantsContainer}>
             <Button title="Voltar" onPress={()=>{handler(true)}}/>
             <View style={estilos.buttonContainer}>
-                <TouchableOpacity onPress={()=>{setSelecionado(true);}} style={[estilos.button, estilos.leftButton, selecionado?estilos.buttonSelecionado: null]}>
+                <TouchableOpacity accessibilityLabel={`${selecionado?"Selecionado Professores":""}`} onPress={()=>{setSelecionado(true);}} style={[estilos.button, estilos.leftButton, selecionado?estilos.buttonSelecionado: null]}>
                     <Text style={{textAlign: "center"}}>Professores</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{setSelecionado(false);}} style={[estilos.button, estilos.rigthButton, !selecionado?estilos.buttonSelecionado: null]}>
+                <TouchableOpacity accessibilityLabel={`${!selecionado?"Selecionado Alunos":""}`} onPress={()=>{setSelecionado(false);}} style={[estilos.button, estilos.rigthButton, !selecionado?estilos.buttonSelecionado: null]}>
                     <Text style={{textAlign: "center"}}>Alunos</Text>
                 </TouchableOpacity>
             </View>

@@ -1,102 +1,102 @@
 [
 	{
 		nome:"Restaurante Universitário",
-		coords:{lon:'-3.69323', lat:'-40.35440', zoom:'21'},
+		coords:{lon:"-3.69323", lat:"-40.35440", zoom:"21"},
 		id:"a"
 	},
 	{
 		nome:"Ponto de Onibus",
-		coords:{lon:'-3.69364', lat:'-40.35565', zoom:'21'},
+		coords:{lon:"-3.69364", lat:"-40.35565", zoom:"21"},
 		id:"b"
 	},
 	{
 		nome:"Biblioteca",
-		coords:{lon:'-3.69398', lat:'-40.35429', zoom:'20'},
+		coords:{lon:"-3.69398", lat:"-40.35429", zoom:"20"},
 		id:"c"
 	},
 	{
 		nome:"Auditorio",
-		coords:{lon:'-3.6931576', lat:'-40.3540371', zoom:'20.48'},
+		coords:{lon:"-3.6931576", lat:"-40.3540371", zoom:"20.48"},
 		id:"d"
 	},
 	{
 		nome:"Secretaria da Engenharia da Computação",
-		coords:{lon:'-3.69313943', lat:'-40.354787', zoom:'21.79'},
+		coords:{lon:"-3.69313943", lat:"-40.354787", zoom:"21.79"},
 		id:"e"
 	},
 	{
 		nome:"Secretaria da Engenharia Eletrica",
-		coords:{lon:'-3.6931199', lat:'-40.3547678', zoom:'22'},
+		coords:{lon:"-3.6931199", lat:"-40.3547678", zoom:"22"},
 		id:"f"
 	},
 	{
 		nome:"Banheiros",
-		coords:{lon:'-3.6932016', lat:'-40.35481791', zoom:'22'},
+		coords:{lon:"-3.6932016", lat:"-40.35481791", zoom:"22"},
 		id:"g"
 	},
 	{
 		nome:"Coordenação",
-		coords:{lon:'-3.69314', lat:'-40.35483', zoom:'23'},
+		coords:{lon:"-3.69314", lat:"-40.35483", zoom:"23"},
 		id:"h"
 	},
 	{
 		nome:"Sala de reuniao",
-		coords:{lon:'-3.69318', lat:'-40.35482', zoom:'24'},
+		coords:{lon:"-3.69318", lat:"-40.35482", zoom:"24"},
 		id:"i"
 	},
 	{
 		nome:"Laboratorio de maquinas eletricas",
-		coords:{lon:'-3.69316', lat:'-40.35468', zoom:'22'},
+		coords:{lon:"-3.69316", lat:"-40.35468", zoom:"22"},
 		id:"j"
 	},
 	{
 		nome:"Laboratorio de eletrotecnica",
-		coords:{lon:'-3.69315', lat:'-40.35462', zoom:'22'},
+		coords:{lon:"-3.69315", lat:"-40.35462", zoom:"22"},
 		id:"k"
 	},
 	{
 		nome:"Laboratorio de fisica experimental",
-		coords:{lon:'-3.69314', lat:'-40.35456', zoom:'22'},
+		coords:{lon:"-3.69314", lat:"-40.35456", zoom:"22"},
 		id:"l"
 	},
 	{
 		nome:"Laboratorio de simulação computacional",
-		coords:{lon:'-3.69314', lat:'-40.35451', zoom:'22'},
+		coords:{lon:"-3.69314", lat:"-40.35451", zoom:"22"},
 		id:"m"
 	},
 	{
 		nome:"Laboratorio de controle de automação",
-		coords:{lon:'-3.69313', lat:'-40.35445', zoom:'22'},
+		coords:{lon:"-3.69313", lat:"-40.35445", zoom:"22"},
 		id:"n"
 	},
 	{
 		nome:"Sala do conselho",
-		coords:{lon:'-3.69325', lat:'-40.35472', zoom:'23'},
+		coords:{lon:"-3.69325", lat:"-40.35472", zoom:"23"},
 		id:"o"
 	},
 	{
 		nome:"Jardim",
-		coords:{lon:'-3.69335', lat:'-40.35474', zoom:'22'},
+		coords:{lon:"-3.69335", lat:"-40.35474", zoom:"22"},
 		id:"p"
 	},
 	{
 		nome:"Salas de aula",
-		coords:{lon:'-3.69353', lat:'-40.35456', zoom:'20'},
+		coords:{lon:"-3.69353", lat:"-40.35456", zoom:"20"},
 		id:"q"
 	},
 	{
 		nome:"Estacionamento",
-		coords:{lon:'-3.69277', lat:'-40.35478', zoom:'20'},
+		coords:{lon:"-3.69277", lat:"-40.35478", zoom:"20"},
 		id:"r"
 	},
 	{
 		nome:"Cantina",
-		coords:{lon:'-3.69329', lat:'-40.35408', zoom:'23'},
+		coords:{lon:"-3.69329", lat:"-40.35408", zoom:"23"},
 		id:"s"
 	},
 	{
 		nome:"Diretoria de tecnologia da informação",
-		coords:{lon:'-3.69323', lat:'-40.35461', zoom:'23'},
+		coords:{lon:"-3.69323", lat:"-40.35461", zoom:"23"},
 		id:"t"
 	}
 ]

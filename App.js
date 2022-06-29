@@ -1,18 +1,14 @@
 import React from 'react';
-import {Text, View, Button, ScrollView, FlatList,Image, StyleSheet, TouchableOpacity } from 'react-native';
+import {Text, View, Image, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 import { NavigationContainer,DefaultTheme,DarkTheme } from '@react-navigation/native';
 import Contato from './screens/Contato';
 import Mapa from './screens/Mapa';
-import MapaMed from './screens/MapaMed';
 import HomeScreen from './screens/HomeScreen';
 import QuemSomosNos from './screens/QuemSomosNos';
 import Sigga from './screens/Sigaa/Sigga';
 import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-const Tab = createBottomTabNavigator();
 
 const Drawer = createDrawerNavigator();
 
@@ -30,41 +26,6 @@ const CustomDrawer = (props) =>{
     </DrawerContentScrollView>
   );
 };
-
-const opcoes = {
-  headerStyle:{
-    backgroundColor:'#016EA4',
-  },
-  headerTitleAlign:'center',
-  headerTitleStyle:{
-    color:'#FFFFFF',
-  },
-  headerTintColor:'#FFFFFF'
-};
-
-function Mapas() {
-  return (
-    <Tab.Navigator
-    screenOptions={opcoes}
-    screenOptions={{headerShown:false}}
-    >
-      <Tab.Screen name="Mucambinho" component={Mapa}
-      options={{
-        tabBarIcon: () => (
-          <Icon name="map" type='font-awesome-5' style={css.iconApp} />
-        ),
-      }}
-      />
-      <Tab.Screen name="Famed" component={MapaMed} 
-       options={{
-        tabBarIcon: () => (
-          <Icon name="map-marked-alt" type='font-awesome-5' style={css.iconApp} />
-        ),
-      }}
-      />
-    </Tab.Navigator>
-  );
-}
 
 export default function App() {
   return (
@@ -125,7 +86,7 @@ export default function App() {
             ) 
           }}
          />
-          <Drawer.Screen name="Mapas" component={Mapas}
+          <Drawer.Screen name="Mapas" component={Mapa}
           options={{
             drawerIcon: ({ focused, size }) => (
                 <Icon

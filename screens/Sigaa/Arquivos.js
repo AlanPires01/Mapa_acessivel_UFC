@@ -63,7 +63,7 @@ export default function Arquivos({data, handler, sessionID}){
         <View style={estilos.container}>
             <Button title="Voltar" onPress={()=>{handler(true)}}/>
             <FlatList data={data} renderItem={renderItem}
-                ListEmptyComponent={<Text style={{textAlign:"center", margin: 20}}>Nenhum arquivo foi encontrado!</Text>}
+                ListEmptyComponent={<Text style={{textAlign:"center", margin: 20}}>Nenhum arquivo foi encontrado nessa turma!</Text>}
                 keyExtractor={(item)=>{return item.nome+item.payload}}
             />
         </View>

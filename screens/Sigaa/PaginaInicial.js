@@ -41,7 +41,7 @@ export default function PaginaInicial({sessionID, handler}){
 
 		return (
 			<View style={[estilos.semestreButton, item === semestreSelecionado?estilos.semestreButtonSelecionado: null]}>
-				<TouchableOpacity onPress={()=>{
+				<TouchableOpacity accessibilityLabel={`${item===semestreSelecionado?"Selecionado": ""} semestre ${item}`} onPress={()=>{
 					setSemestreSelecionado(item);
 				}}>
 					<Text>{item}</Text>

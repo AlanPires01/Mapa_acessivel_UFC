@@ -73,6 +73,8 @@ export default function Menu({handler, data, sessionID}){
 						setSelectedOption([item])
 						setOption(false);
 					}}
+					accessible={true}
+					accessibilityRole="button"
 					>
 
 					<View style={estilo.menuButton}>
