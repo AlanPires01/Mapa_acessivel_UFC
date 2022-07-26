@@ -23,33 +23,44 @@ const GradesExtractor = new GradesExtract;
 
 export default function Notas({sessionID, disciplina, handler}){
 	const [grades, setGrades] = React.useState([]);
+	const [estado, setEstado] = React.useState("Procurando informações...")
+	const [isMounted, setIsMounted] = React.useState(true);
 	React.useEffect(()=>{
+		setIsMounted(true);
 		(async()=>{
 			const text = await getGrades(sessionID, disciplina.payload);
 			GradesExtractor.updateData(text);
-			setGrades([GradesExtractor.getData()]);
+			if(isMounted){
+				setGrades(GradesExtractor.getData());
+				if(grades.length === 0){
+					setEstado("Informação não encontrada!");
+				}
+			}
+			
 		})();
-
+		return ()=>{
+			setIsMounted(false);
+		};
 	},[]);
 
-	function render({item, index}){
+	function renderItem({item}){
 		return (
-			<View>
-				<Text>Unidade {index+1}:</Text>
-				<Text>	AP{index+1}: {item.AP}</Text>
-				<Text>	N: {item.N}</Text>
+			<View style={{borderWidth:1, padding: 10}}>
+				<Text style={{fontWeight: "bold"}}>{item.titulo}</Text>
+				<Text>{ (item?.conteudo) ? item?.conteudo : "NÃO FORNECIDA!"} </Text>
 			</View>
 		);
 	}
+
 	return (
 		<View style={estilo.gradesContainer}>
 			<Button onPress={()=>{
 							handler(true)
 						}} title="Voltar"/>
-			<Text>Notas:</Text>
-			<Text>Aluno: {grades?.[0]?.aluno ?? ''} - {grades?.[0]?.matricula ?? ''}</Text>
-			<Text>Situação: {grades?.[0]?.situacao ?? ''}</Text>
-			<FlatList data={grades?.[0]?.unidades} renderItem={render} keyExtractor={item=>item.index}/>
+			<Text style={{fontWeight: "bold", marginTop: 10}}>NOTAS{'\n'}</Text>
+			<FlatList ListEmptyComponent={
+				<><Text>{estado}</Text></>
+			} data={grades} renderItem={renderItem} keyExtractor={item=>item.conteudo+item.titulo}/>
 		</View>
 	);
 }

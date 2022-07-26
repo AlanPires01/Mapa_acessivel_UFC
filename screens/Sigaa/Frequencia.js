@@ -5,7 +5,17 @@ import {FrequencyExtract, GetHeaders} from './Sigaa-utils.js';
 
 const estilo = {
 	frequencyContainer:{
-		padding:10
+		padding:10,
+	},
+	text:{
+		padding: 10,
+		backgroundColor: "#ddd",
+		borderBottomWidth: 1,
+	},
+	infoText: {
+		padding: 5,
+		backgroundColor: "#ddd",
+		borderBottomWidth: 1
 	}
 }
 
@@ -24,16 +34,23 @@ const getFrequency = async (sessionID, payload) => {
 
 export default function Frequencia({sessionID, disciplina, handler}){
 	const [faltas, setFaltas] = React.useState([]);
+	const [isMounted, setIsMounted] = React.useState(true);
 
 	React.useEffect(()=>{
+		setIsMounted(true);
 		(async()=>{
 			const text = await getFrequency(sessionID, disciplina.payload);
 			FrequencyExtractor.updateData(text);
-			setFaltas([FrequencyExtractor.getData()]);
+			if(isMounted){
+				setFaltas([FrequencyExtractor.getData()]);
+			}
+			
 		})();
+		return ()=>{
+			setIsMounted(false);
+		};
 
 	},[]);
-
 	function render({item}){
 		return(
 			<View key={item.data}>
@@ -49,19 +66,19 @@ export default function Frequencia({sessionID, disciplina, handler}){
 						<Button onPress={()=>{
 							handler(true)
 						}} title="Voltar"/>
-						<Text>Frequencia:</Text>
-						<Text>{faltas?.[0]?.infos?.turma && faltas[0].infos.turma}</Text>
+						<Text style={{fontWeight:"bold", marginTop: 10}}>FREQUÊNCIA</Text>
+						<Text style={estilo.infoText}>{faltas?.[0]?.infos?.turma && faltas[0].infos.turma}</Text>
 					</>
 				}
 
 				ListEmptyComponent={
-					<Text>Nenhuma informação encontrada</Text>
+					<Text style={{textAlign:"center", padding:10}}>Nenhuma informação encontrada!</Text>
 				}
 
 				ListFooterComponent={
 					<>
-						<Text>{faltas?.[0]?.infos?.faltasTotais && `Faltas totais: ${faltas[0].infos.faltasTotais}`}</Text>
-						<Text>{faltas?.[0]?.infos?.faltasMaximas && `Faltas máximas: ${faltas[0].infos.faltasMaximas}`}</Text>
+						<Text style={estilo.infoText}>{faltas?.[0]?.infos?.faltasTotais && `Faltas totais: ${faltas[0].infos.faltasTotais}`}</Text>
+						<Text style={estilo.infoText}>{faltas?.[0]?.infos?.faltasMaximas && `Faltas máximas: ${faltas[0].infos.faltasMaximas}`}</Text>
 					</>
 				}
 

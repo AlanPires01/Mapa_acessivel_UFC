@@ -32,9 +32,10 @@ const WorkExtractor = new WorkExtract;
 export default function Tarefas({sessionID, handler, disciplina}){
     const [tarefas, setTarefas] = React.useState([]);
     const [encontradaTarefa, setEncontradaTarefa] = React.useState("Procurando tarefas...");
-    
-    React.useEffect(()=>{
+    const [isMounted, setIsMounted] = React.useState(true);
 
+    React.useEffect(()=>{
+        setIsMounted(true);
         (async ()=>{
 
             const response = await fetch("https://si3.ufc.br/sigaa/ava/index.jsf", {
@@ -46,11 +47,15 @@ export default function Tarefas({sessionID, handler, disciplina}){
             WorkExtractor.updateData(responseText);
             const ts = WorkExtractor.getData().tarefas;
             
-            setTarefas(ts);
-            setEncontradaTarefa(ts.length === 0 ? "Nenhuma tarefa Encontrada!" : "")
-
+            if(isMounted){
+                setTarefas(ts);
+                setEncontradaTarefa(ts.length === 0 ? "Nenhuma tarefa Encontrada!" : "");
+            }
+            
         })();
-
+        return ()=>{
+            setIsMounted(false);
+        };
     }, []);
 
     const renderItem = ({item}) =>{

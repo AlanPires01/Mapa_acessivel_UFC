@@ -22,7 +22,6 @@ export default function PaginaInicial({sessionID, handler}){
 	const [semestresData, setSemestresData] = React.useState([]);
 	const [menuOpened, setMenuOpened] = React.useState(false);
 	const [dataMenu, setDataMenu] = React.useState([]);
-
 	React.useEffect(()=>{
 		(async()=>{
 			const disciplinas = await getAllClasses(sessionID);

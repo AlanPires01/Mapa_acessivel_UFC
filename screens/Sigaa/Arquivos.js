@@ -6,18 +6,12 @@ import * as Sharing from "expo-sharing";
 import {Buffer} from "buffer";
 import axios from 'axios';
 
-
 export default function Arquivos({data, handler, sessionID}){
     const [baixando, setBaixando] = React.useState(false);
     function download(item){
 
         setBaixando(true);
         console.log("Iniciando Download");
-        let fileName = item.nome.includes(".pdf") ? item.nome : item.nome+ ".pdf";
-        let uri = FileSystem.documentDirectory + fileName;
-        console.log("Arquivo sera salvo em ", uri);
-
-        
 
         (async()=>{
             const response = await axios({
@@ -26,13 +20,15 @@ export default function Arquivos({data, handler, sessionID}){
                 data: item.payload,
                 headers: GetHeaders(sessionID),
                 responseType: "arraybuffer"
-              });
-            console.log(response.status);
+            });
+
             const buff = Buffer.from(response.data, 'base64')
             const saida =  buff.toString('base64')
+            let fileName = response.headers["content-disposition"].match(/filename="(.+)"/)[1];
+            let uri = FileSystem.documentDirectory + fileName;
             await FileSystem.writeAsStringAsync(uri, saida, { encoding: FileSystem.EncodingType.Base64 });
             await Sharing.shareAsync(uri);
-
+            console.log("Download Completo!");
             Alert.alert("Download completo", `O arquivo ${fileName} foi baixado com sucesso!`);
 
         })();

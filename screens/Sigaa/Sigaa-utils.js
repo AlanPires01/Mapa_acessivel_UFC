@@ -75,7 +75,7 @@ class NewsListExtract extends ExtractHTML{
 			this.data = saida;
 		}
 		catch(e){
-			this.data = {}
+			this.data = []
 		}
 	}
 }
@@ -86,7 +86,8 @@ class NewsExtract extends ExtractHTML{
 		try{
 			const root = parse(text);
 			const noticia = root.querySelector('ul.form').querySelectorAll('li');
-			let texto = noticia[2].querySelectorAll('p').map(e=>e.structuredText).join(' ');
+			let texto = noticia[2].structuredText;
+			texto = texto.replace("Texto:", "").replace("<!DOCTYPE html>\n", "").replace("\n ","").replace("\n"," ");
 			let saida = {
 				titulo: noticia[0].querySelector('span').structuredText.replace(' ', ''),
 				data: noticia[1].querySelector('span').structuredText.replace(' ',''),
@@ -192,46 +193,83 @@ class GradesExtract extends ExtractHTML{
 		const root = parse(text);
 		const nome = root.querySelector?.("h3")?.structuredText;
 		if(nome === undefined){
-			this.data = {};
+			this.data = [];
 			return;
 		}
-		
-		/*
-		let th = root.querySelectorAll("th").map(e=>e.structuredText);
-		let td = root.querySelectorAll("td").map(e=>e.structuredText.replace(' ',''));
-		th = th.slice(0, th.length-10);
-		td = td.slice(0, td.length-4);
+		let table = root.querySelector('.tabelaRelatorio');
+		let ths = table.querySelectorAll("th");
+		let tds = table.querySelectorAll("td");
 
-		//console.log(nome)
-		let saida = {
-			nome: nome,
-			notas: {
-				matricula: td[0],
-				nome: td[1],
-				faltas: td[td.length-2],
-				situacao: td[td.length-1]
+		const thead = table.querySelector("thead").querySelectorAll("tr");
+		const tbody = table.querySelector("tbody").querySelectorAll("tr");
+		
+		let saida = [];
+		let ss = [];
+		if(thead.length === 1){
+			let ths = thead[0].querySelectorAll("th");
+			let tds = tbody[0].querySelectorAll("td");
+			for(let i = 0; i < ths.length; i++){
+				saida.push({
+					"titulo": ths[i].structuredText,
+					"conteudo": tds[i].structuredText
+				});
 			}
+			this.data = saida;
 		}
+		else{
+			for(let i = 0; i < thead.length; i++){
+				let temp = [];
+				let ths = thead[i].querySelectorAll("th");
+				for(let o = 0; o < ths.length; o++){
+					let colspan = ths[o].getAttribute("colspan");
+					temp.push({
+						"titulo": ths[o].structuredText,
+						"agrupamento": colspan===undefined?0:parseInt(colspan)
+					});
+				}
+				ss.push(temp)
+			}
+			let aux = 0;
+			let tds = tbody[0].querySelectorAll("td");
+			for(let i = 0; i < ss[0].length; i++){
+				
+				if(ss[0][i].agrupamento !== 0){
+					for(let aa = aux; aa<aux+ss[0][i].agrupamento; aa++){
+						
+						saida.push({
+							titulo: ss[0][i].titulo + (!ss[1][aa].titulo?"":` > ${ss[1][aa].titulo}`),
+							conteudo: ""
+						});
+					}
+					aux+=ss[0][i].agrupamento;
+				}
+				else{
+					saida.push({
+						titulo: ss[0][i].titulo + (!ss[1][aux].titulo?"":` > ${ss[1][aux].titulo}`),
+						conteudo: ""
+					})
+					aux+=1;
+				}
+				
+				
+			}
+			
+			for(let i = 0; i < saida.length; i++){
+				saida[i].conteudo = tds[i].structuredText
+			}
+			this.data = saida;
+		}
+
+
+
+		/*fddsfds 
+		let sa = [];
+		for(let i = 0; i<tds.length; i++){
+			sa.push({titulo: ths[i]?.structuredText.toUpperCase(), conteudo: tds[i]?.structuredText});
+		}
+		let saida = sa;
 		this.data = saida;
 		*/
-		let table = root.querySelector('.tabelaRelatorio');
-		let td = table.querySelectorAll('td').map(e=>{
-			return e.structuredText;
-		})
-		let unit = (td.length - 6) / 2;
-		let saida = {
-			matricula: td[0],
-			aluno: td[1],
-			situacao: td[td.length-1],
-			faltas: td[td.length-2].replace(' ',''),
-			resultado: td[td.length-3].replace(' ',''),
-			notaFinal: td[td.length-4].replace(' ',''),
-			unidades: []
-		}
-		for(let i = 0; i<unit; i++){
-			saida.unidades.push({AP:td[2+(i*2)].replace(' ',''), N:td[2+(i*2)+1].replace(' ','')});
-		}
-		this.data = saida;
 	}
 }
 

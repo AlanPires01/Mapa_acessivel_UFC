@@ -42,10 +42,12 @@ export default function Menu({handler, data, sessionID}){
 	const [menuData, setMenuData] = React.useState([]); 
 	const [selectedOption, setSelectedOption] = React.useState([]);
 	const [option, setOption] = React.useState(true);
-
+	const [mounted, setMounted] = React.useState(true);
+	
 	React.useEffect(()=>{
+		setMounted(true);
+		
 		(async()=>{
-			
 			const response = await fetch("https://si3.ufc.br/sigaa/portais/discente/turmas.jsf", {
 				method: "post",
 				headers: GetHeaders(sessionID),
@@ -61,9 +63,15 @@ export default function Menu({handler, data, sessionID}){
 				payload: "",
 				arquivos: PrincipalExtractor.getData().arquivos
 			});
-			setMenuData(menuList);
+			if(mounted){
+				setMenuData(menuList);
+			}
+			
 		})();
 
+		return ()=>{
+			setMounted(false);
+		};
 	},[]);
 
 	function renderItem({item}){
@@ -75,7 +83,7 @@ export default function Menu({handler, data, sessionID}){
 					}}
 					accessible={true}
 					accessibilityRole="button"
-					>
+				>
 
 					<View style={estilo.menuButton}>
 						<Text style={estilo.menuText}>{item.menu}</Text>
@@ -113,9 +121,14 @@ export default function Menu({handler, data, sessionID}){
 				<Button title="Voltar" onPress={()=>{handler(false)}}/>
 				<Text style={estilo.textTitle}>{data?.[0].disciplina}</Text>
 				<View>
-					<FlatList ListEmptyComponent={
-						<Text style={{textAlign:"center"}}>Carregando menu...</Text>
-					} data={menuData} renderItem={renderItem} keyExtractor={e=>e.menu}/>
+					<FlatList 
+						ListEmptyComponent={
+							<Text style={{textAlign:"center"}}>Carregando menu...</Text>
+						} 
+						data={menuData} 
+						renderItem={renderItem} 
+						keyExtractor={e=>e.menu}
+					/>
 				</View>
 			</View>	
 		) : (

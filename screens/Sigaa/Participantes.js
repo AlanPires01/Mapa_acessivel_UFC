@@ -51,8 +51,10 @@ export default function Participantes({sessionID, handler, disciplina}){
     const [selecionado, setSelecionado] = React.useState(true);
     const [professores, setProfessores] = React.useState([]);
     const [alunos, setAlunos] = React.useState([]);
+    const [isMounted, setIsMounted] = React.useState(true);
 
     React.useEffect( ()=>{
+        setIsMounted(true);
         (async()=>{
             const response = await fetch("https://si3.ufc.br/sigaa/ava/index.jsf", {
                 method: "post",
@@ -61,9 +63,15 @@ export default function Participantes({sessionID, handler, disciplina}){
             })
             const responseText = await response.text();
             ParticipantesExtractor.updateData(responseText);
-            setProfessores(ParticipantesExtractor.getData().professores);
-            setAlunos(ParticipantesExtractor.getData().alunos);
+            if(isMounted){
+                setProfessores(ParticipantesExtractor.getData().professores);
+                setAlunos(ParticipantesExtractor.getData().alunos);
+            }
+            
         })();
+        return ()=>{
+            setIsMounted(false);
+        };
     },[])
 
     function renderProfessores({item}){
