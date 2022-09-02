@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Image, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
-import { NavigationContainer,DefaultTheme,DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import Contato from './screens/Contato';
 import Mapa from './screens/Mapa';
 import HomeScreen from './screens/HomeScreen';
@@ -9,10 +9,17 @@ import QuemSomosNos from './screens/QuemSomosNos';
 import Sigga from './screens/Sigaa/Sigga';
 import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
+import { meuContexto, convertTime } from './Contexto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
+
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = (props) =>{
+  const timer = React.useContext(meuContexto);
   return( 
     <DrawerContentScrollView {...props}>
       <View style={{flexDirection: 'row',
@@ -22,14 +29,51 @@ const CustomDrawer = (props) =>{
         style={css.logoApp}
         />
       </View>
-       <DrawerItemList {...props}/>
+      <DrawerItemList {...props}/>
+      <View>
+        <Text style={{color:"gray",marginTop:70, textAlign:"center"}}>Tempo de uso = {convertTime(timer).minutes.toString().padStart(2,0)}:{convertTime(timer).seconds.toString().padStart(2,0)}</Text>
+      </View>
     </DrawerContentScrollView>
   );
 };
 
+
+
 export default function App() {
+  const [valor, setValor] = React.useState(1);
+  React.useEffect(()=>{
+    let intervalo = null;
+
+    console.log("Iniciado timer");
+    AsyncStorage.getItem("@tempoUso", (err, item)=>{
+      if(item === null){
+        AsyncStorage.setItem("@tempoUso","0");
+      }
+      else{
+        setValor(parseInt(item));
+      }
+    });
+
+    intervalo = setInterval(()=>{
+      setValor(value => {
+        if(value % 5 === 0){
+          AsyncStorage.setItem("@tempoUso", value.toString());
+        }
+        return value+1;
+      });
+      
+      
+    },1000);
+    
+    return ()=>{
+      console.log("Timer Parado!");
+      AsyncStorage.setItem("@tempoUso", valor.toString());
+      clearInterval(intervalo);
+    }
+  }, []);
   return (
     <NavigationContainer>
+      <meuContexto.Provider value={valor}>
       <Drawer.Navigator 
        screenOptions={
         {
@@ -128,6 +172,7 @@ export default function App() {
             )  
           }}/>
       </Drawer.Navigator>
+      </meuContexto.Provider>
     </NavigationContainer>
   );
 }
