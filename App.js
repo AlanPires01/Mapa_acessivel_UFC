@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity } from 'react-native';
+import {Text, View, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Contato from './screens/Contato';
@@ -7,14 +7,11 @@ import Mapa from './screens/Mapa';
 import HomeScreen from './screens/HomeScreen';
 import QuemSomosNos from './screens/QuemSomosNos';
 import Sigga from './screens/Sigaa/Sigga';
+import RU from './screens/RU/RU';
 import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
 import { meuContexto, convertTime } from './Contexto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-
-
 
 const Drawer = createDrawerNavigator();
 
@@ -74,7 +71,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <meuContexto.Provider value={valor}>
-      <Drawer.Navigator 
+      <Drawer.Navigator
+       useLegacyImplementation={true}
        screenOptions={
         {
           headerStyle:{
@@ -88,23 +86,23 @@ export default function App() {
           header:(props)=>{
             return (
               <View style={{
-                  height:92,
+                  height:StatusBar.currentHeight+24,
                   backgroundColor: "#016EA4",
+                  elevation:10
                 }}>
+                  <StatusBar backgroundColor={"#016EA4"}/>
                 <View style={{
                   flex:1, 
                   flexDirection:'row', 
-                  alignItems:'flex-end', 
+                  alignItems:'center', 
                   justifyContent:'center',
-                  padding:10
                 }}>
                   <View style={{
                     position:"absolute",
-                    left:0,
-                    bottom:0,
+                    left:10
                   }}>
                     <TouchableOpacity accessible={true} accessibilityLabel="Menu Lateral" accessibilityRole={"button"} onPress={()=>{props.navigation.openDrawer()}}>
-                      <Icon color="white" name='menu-outline' type='ionicon' style={css.iconApp}/>
+                      <Icon color="white" name='menu-outline' type='ionicon' style={css.iconApp} size={38}/>
                     </TouchableOpacity>
                   </View>
                   <View accessible={true} accessibilityRole={'header'}>
@@ -146,6 +144,16 @@ export default function App() {
             drawerIcon: ({ focused, size }) => (
                 <Icon
                   name='document-text-outline'
+                  type='ionicon'
+                  style={css.iconApp}
+                />
+            )  
+          }}/>
+        <Drawer.Screen name="Restaurante" component={RU}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+                <Icon
+                  name='restaurant-outline'
                   type='ionicon'
                   style={css.iconApp}
                 />

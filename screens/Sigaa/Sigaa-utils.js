@@ -1,4 +1,3 @@
-import { createIconSetFromFontello } from '@expo/vector-icons';
 import {parse} from 'node-html-parser';
 
 class ExtractHTML{
