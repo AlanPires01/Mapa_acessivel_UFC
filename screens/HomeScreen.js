@@ -1,24 +1,28 @@
 import React from 'react';
-import {View, Text,Image,ScrollView} from 'react-native';
-import {css} from '../assets/css/css';
+import {View, Text, Image, ScrollView, useColorScheme} from 'react-native';
 import { Paragraph,Title, Button } from 'react-native-paper';
+import {dark} from '../assets/css/dark';
+import {light} from '../assets/css/light';
 
 export default function HomeScreen({ navigation }) {
-  
+  const deviceTheme = useColorScheme();
+  var theme = light; var foto = true;
+  if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}
+  var icon = foto ? require('../assets/tae1.jpeg') : require('../assets/tae1.png');
   return (
-    <ScrollView style={css.container}>
+    <ScrollView style={theme.container}>
         <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', margin: 2}}>
             <Image 
               source={require('../assets/logo_ufc.png')}
               style={{width:150,height:150}}
             />
             <Image 
-              source={require('../assets/tae1.jpeg')}
+              source={icon}
               style={{width:200,height:150}}
             />
         </View>
-          <Title style={css.titulo}>Bem-Vindo!</Title>
-        		<Paragraph style={css.texto}>         O Grupo TAE apresenta o aplicativo de Mapa Acessíveis que tem como finalidade apresentar um mapa acessível 
+          <Title style={theme.titulo}>Bem-Vindo!</Title>
+        		<Paragraph style={theme.texto}>         O Grupo TAE apresenta o aplicativo de Mapa Acessíveis que tem como finalidade apresentar um mapa acessível 
             e com informações sobre a Universidade Federal do Ceará (UFC) no Campus Sobral,
             permitindo tornar o campus mais acessível e visando ampliar a autonomia de
             alunos novatos com ou sem algum tipo de deficiência.       

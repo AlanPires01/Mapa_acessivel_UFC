@@ -1,7 +1,8 @@
 import React from 'react';
-import {TouchableOpacity,ScrollView,Text,View,StyleSheet,FlatList} from 'react-native';
+import {TouchableOpacity, ScrollView, Text,View, StyleSheet, FlatList, useColorScheme} from 'react-native';
 import { Icon } from 'react-native-elements';
-import {css} from '../assets/css/css';
+import {dark} from '../assets/css/dark';
+import {light} from '../assets/css/light';
 
 const dados = [
   {
@@ -49,19 +50,22 @@ const dados = [
 ];
 
 const Infos = ({ navigation }) => {
+  const deviceTheme = useColorScheme();
+  var theme = light;
+  if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
   const render = ({ item }) => {
     return (
       <TouchableOpacity
-        style={css.linksButtons}
+        style={theme.linksButtons}
         onPress={() => navigation.navigate(item.screenName)}>
         <Icon color="white" name={item.iconName} type="font-awesome" />
-        <Text style={css.linksText}>{item.title.toUpperCase()}</Text>
+        <Text style={{color: 'white'}}>{item.title.toUpperCase()}</Text>
       </TouchableOpacity>
     );
   };
   return (
-      <View style={css.linksContainer}>
-        <FlatList style={css.linksList} data={dados} renderItem={render} />
+      <View style={theme.linksContainer}>
+        <FlatList style={theme.linksList} data={dados} renderItem={render} />
       </View>
   );
 };

@@ -1,11 +1,15 @@
 import React from 'react';
-import {View, Text, TextInput, Button, Alert} from 'react-native';
+import {View, Text, TextInput, Button, Alert, useColorScheme} from 'react-native';
 import {logIN, acessarPaginaInicial, getNewSessionID, GetHeaders} from './Sigaa-utils.js';
 import PaginaInicial from './PaginaInicial.js';
-
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Sigga(){
-
+	const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
+	const [hidePass, sethidePass] = React.useState(true);
 	const [user, setUser] = React.useState('');
 	const [senha, setSenha] = React.useState('');
 	const [sessionID, setSessionID] = React.useState('');
@@ -48,11 +52,19 @@ export default function Sigga(){
 	
 	return (
 		!loginState ? (
-			<View style={estilos.container}>
-				<Text accessible={false} style={estilos.text}> SIGAA </Text>
-				<View style={estilos.inputContainer}>
-					<TextInput style={estilos.input} onChangeText={(e)=>setUser(e)} placeholder={'Usuário'}/>
-					<TextInput style={estilos.input} onChangeText={(e)=>setSenha(e)} placeholder={'Senha'}/>
+			<View style={theme.containerSigaa}>
+				<Text accessible={false} style={theme.textSigaa}> SIGAA </Text>
+				<View style={theme.inputContainerSigaa}>
+					<TextInput style={theme.inputSigaa} onChangeText={(e)=>setUser(e)} placeholder={'Usuário'}/>
+				</View>
+				<View style={theme.inputContainerSenha}>
+					<TextInput style={theme.inputSenha} onChangeText={(e)=>setSenha(e)} placeholder={'Senha'} secureTextEntry={hidePass}/>
+					<TouchableOpacity style={theme.iconEye} onPress={() => sethidePass(!hidePass)}>
+						{ hidePass ? <Ionicons name="eye" color="#858585" size={25}></Ionicons> : 
+						<Ionicons name="eye-off" color="#858585" size={25}></Ionicons>}
+					</TouchableOpacity>
+				</View>	
+				<View style={theme.inputContainerSigaa}>
 					<Button accessibilityLabel="Clique para fazer login no SIGAA" title={"Entrar"} onPress={logar}/>
 				</View>
 			</View>
@@ -60,26 +72,4 @@ export default function Sigga(){
 			<PaginaInicial sessionID={sessionID} handler={logOff}/>
 		)
 	)
-}
-
-const estilos = {
-	input:{
-		borderWidth: 1,
-		borderColor: '#016EA4',
-		padding: 10,
-		marginBottom: 20
-	},
-	container:{
-		flex: 1,
-		alignItems: 'center',
-		padding:20
-	},
-	text:{
-		fontSize:40,
-		margin:20,
-		color:'#016EA4'
-	},
-	inputContainer:{
-		width:'80%'
-	},	
 }

@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, Button, FlatList} from 'react-native';
+import {View, Text, Button, FlatList, useColorScheme} from 'react-native';
 import {FrequencyExtract, GetHeaders} from './Sigaa-utils.js';
-
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 const estilo = {
 	frequencyContainer:{
@@ -33,6 +34,7 @@ const getFrequency = async (sessionID, payload) => {
 }
 
 export default function Frequencia({sessionID, disciplina, handler}){
+	const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
 	const [faltas, setFaltas] = React.useState([]);
 	const [isMounted, setIsMounted] = React.useState(true);
 
@@ -54,31 +56,31 @@ export default function Frequencia({sessionID, disciplina, handler}){
 	function render({item}){
 		return(
 			<View key={item.data}>
-			<Text style={estilo.text}> <Text style={estilo.data}>{item.data}</Text> <Text style={estilo.situacao}>{item.situacao}</Text></Text>
+			<Text style={theme.textF}> <Text style={theme.data}>{item.data}</Text> <Text style={theme.situacao}>{item.situacao}</Text></Text>
 			</View>
 		)
 	}
 	return (
-		<View style={estilo.frequencyContainer}>
+		<View style={theme.frequencyContainer}>
 			<FlatList
 				ListHeaderComponent={
 					<>
 						<Button onPress={()=>{
 							handler(true)
 						}} title="Voltar"/>
-						<Text style={{fontWeight:"bold", marginTop: 10}}>FREQUÊNCIA</Text>
-						<Text style={estilo.infoText}>{faltas?.[0]?.infos?.turma && faltas[0].infos.turma}</Text>
+						<Text style={theme.text4}>FREQUÊNCIA</Text>
+						<Text style={theme.infoText}>{faltas?.[0]?.infos?.turma && faltas[0].infos.turma}</Text>
 					</>
 				}
 
 				ListEmptyComponent={
-					<Text style={{textAlign:"center", padding:10}}>Nenhuma informação encontrada!</Text>
+					<Text style={theme.text5}>Nenhuma informação encontrada!</Text>
 				}
 
 				ListFooterComponent={
 					<>
-						<Text style={estilo.infoText}>{faltas?.[0]?.infos?.faltasTotais && `Faltas totais: ${faltas[0].infos.faltasTotais}`}</Text>
-						<Text style={estilo.infoText}>{faltas?.[0]?.infos?.faltasMaximas && `Faltas máximas: ${faltas[0].infos.faltasMaximas}`}</Text>
+						<Text style={theme.infoText}>{faltas?.[0]?.infos?.faltasTotais && `Faltas totais: ${faltas[0].infos.faltasTotais}`}</Text>
+						<Text style={theme.infoText}>{faltas?.[0]?.infos?.faltasMaximas && `Faltas máximas: ${faltas[0].infos.faltasMaximas}`}</Text>
 					</>
 				}
 

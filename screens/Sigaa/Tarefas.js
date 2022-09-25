@@ -1,31 +1,8 @@
 import React from "react";
-import {Button, View, FlatList, Text} from "react-native";
+import {Button, View, FlatList, Text, useColorScheme} from "react-native";
 import { GetHeaders, WorkExtract, convertDataToText} from "./Sigaa-utils";
-
-
-const estilos = {
-    tarefaContainer: {
-        padding: 10,
-        marginBottom: 40
-    },
-    tarefa: {
-        backgroundColor: "#ddd",
-        marginTop: 10,
-        padding: 5
-    },
-    tarefaTitle: {
-        fontSize: 15,
-        color:"black",
-        marginBottom: 4,
-        fontWeight:'bold',
-    },
-    tarefaEnviada: {
-        backgroundColor: "#dfd"
-    },
-    tarefaNaoEnviada: {
-        backgroundColor: "#fdd"
-    }
-}
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 const WorkExtractor = new WorkExtract;
 
@@ -33,7 +10,7 @@ export default function Tarefas({sessionID, handler, disciplina}){
     const [tarefas, setTarefas] = React.useState([]);
     const [encontradaTarefa, setEncontradaTarefa] = React.useState("Procurando tarefas...");
     const [isMounted, setIsMounted] = React.useState(true);
-
+    const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
     React.useEffect(()=>{
         setIsMounted(true);
         (async ()=>{
@@ -59,14 +36,13 @@ export default function Tarefas({sessionID, handler, disciplina}){
     }, []);
 
     const renderItem = ({item}) =>{
-        
         return (
             <View 
-                style={[estilos.tarefa, item.tarefaEnviada?estilos.tarefaEnviada:estilos.tarefaNaoEnviada]}
+                style={[theme.tarefa, item.tarefaEnviada?theme.tarefaEnviada:theme.tarefaNaoEnviada]}
                 accessible={true}
                 accessibilityLabel={`Tarefa ${item.titulo} Periodo de entrega de ${convertDataToText(item.periodo.de.data)} até ${convertDataToText(item.periodo.para.data)} ${item.tarefaEnviada?"Você já enviou essa tarefa": "Você ainda não enviou essa tarefa"}`}    
             >
-                <Text style={estilos.tarefaTitle}>{item.titulo}</Text>
+                <Text style={theme.tarefaTitle}>{item.titulo}</Text>
                 <Text>Periodo: {item.periodo.msg}</Text>
                 <View style={{flex:1, flexDirection:"row", justifyContent: "space-between"}}>
                     <Text>Em grupo: {item.emGrupo}</Text>
@@ -78,7 +54,7 @@ export default function Tarefas({sessionID, handler, disciplina}){
     }
 
     return (
-        <View style={estilos.tarefaContainer}>
+        <View style={theme.tarefaContainer}>
             <Button title="Voltar" onPress={ ()=>{handler(true)} }/>
             <FlatList 
                 ListEmptyComponent={()=>{

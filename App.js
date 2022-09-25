@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Contato from './screens/Contato';
 import Mapa from './screens/Mapa';
 import HomeScreen from './screens/HomeScreen';
@@ -12,6 +12,9 @@ import { Icon } from 'react-native-elements';
 import {css} from './assets/css/css';
 import { meuContexto, convertTime } from './Contexto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useColorScheme } from 'react-native';
+import {dark} from './assets/css/dark';
+import {light} from './assets/css/light';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,9 +37,22 @@ const CustomDrawer = (props) =>{
   );
 };
 
-
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: 'rgb(2, 218, 247)',
+    background: 'rgb(13, 14, 33)',
+    card: 'rgb(10, 10, 40)',
+    text: 'rgb(255, 255, 255)',
+    border: 'rgb(255, 255, 255)',
+    notification: 'rgb(255, 255, 255)',
+  },
+};
 
 export default function App() {
+  const deviceTheme = useColorScheme();
+  var theme = light;
+  if(deviceTheme=="dark"){theme = dark;}else {theme = light;}
   const [valor, setValor] = React.useState(1);
   React.useEffect(()=>{
     let intervalo = null;
@@ -69,7 +85,7 @@ export default function App() {
     }
   }, []);
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={deviceTheme === 'dark' ? MyTheme : DefaultTheme}>
       <meuContexto.Provider value={valor}>
       <Drawer.Navigator
        useLegacyImplementation={true}
@@ -123,7 +139,7 @@ export default function App() {
                 <Icon
                   name='home-outline'
                   type='ionicon'
-                  style={css.iconApp}
+                  style={theme.iconApp}
                 />
             ) 
           }}
@@ -134,7 +150,7 @@ export default function App() {
                 <Icon
                   name='map-outline'
                   type='ionicon'
-                  style={css.iconApp}
+                  style={theme.iconApp}
                 />
             ),
             
@@ -145,7 +161,7 @@ export default function App() {
                 <Icon
                   name='document-text-outline'
                   type='ionicon'
-                  style={css.iconApp}
+                  style={theme.iconApp}
                 />
             )  
           }}/>
@@ -155,7 +171,7 @@ export default function App() {
                 <Icon
                   name='restaurant-outline'
                   type='ionicon'
-                  style={css.iconApp}
+                  style={theme.iconApp}
                 />
             )  
           }}/>
@@ -165,7 +181,7 @@ export default function App() {
                 <Icon
                   name='people-outline'
                   type='ionicon'
-                  style={css.iconApp}
+                  style={theme.iconApp}
                 />
             )  
           }}/>
@@ -175,7 +191,7 @@ export default function App() {
                 <Icon
                   name='desktop-outline'
                   type='ionicon'
-                  style={css.iconApp}
+                  style={theme.iconApp}
                 />
             )  
           }}/>

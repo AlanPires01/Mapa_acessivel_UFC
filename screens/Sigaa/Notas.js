@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, Button, FlatList} from 'react-native';
-
+import {View, Text, Button, FlatList, useColorScheme} from 'react-native';
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 import {GradesExtract, GetHeaders} from './Sigaa-utils.js';
 
 const estilo = {
@@ -22,6 +23,7 @@ const getGrades = async (sessionID, payload) => {
 const GradesExtractor = new GradesExtract;
 
 export default function Notas({sessionID, disciplina, handler}){
+	const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
 	const [grades, setGrades] = React.useState([]);
 	const [estado, setEstado] = React.useState("Procurando informações...")
 	const [isMounted, setIsMounted] = React.useState(true);
@@ -45,19 +47,19 @@ export default function Notas({sessionID, disciplina, handler}){
 
 	function renderItem({item}){
 		return (
-			<View style={{borderWidth:1, padding: 10}}>
-				<Text style={{fontWeight: "bold"}}>{item.titulo}</Text>
-				<Text>{ (item?.conteudo) ? item?.conteudo : "NÃO FORNECIDA!"} </Text>
+			<View style={theme.notasGrades}>
+				<Text style={theme.labelTextS}>{item.titulo}</Text>
+				<Text style={theme.textoCor}>{ (item?.conteudo) ? item?.conteudo : "NÃO FORNECIDA!"} </Text>
 			</View>
 		);
 	}
 
 	return (
-		<View style={estilo.gradesContainer}>
+		<View style={theme.gradesContainer}>
 			<Button onPress={()=>{
 							handler(true)
 						}} title="Voltar"/>
-			<Text style={{fontWeight: "bold", marginTop: 10}}>NOTAS{'\n'}</Text>
+			<Text style={theme.text4}>NOTAS{'\n'}</Text>
 			<FlatList ListEmptyComponent={
 				<><Text>{estado}</Text></>
 			} data={grades} renderItem={renderItem} keyExtractor={item=>item.conteudo+item.titulo}/>

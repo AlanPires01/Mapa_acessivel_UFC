@@ -1,53 +1,13 @@
 import React from "react";
-import {View, Text, Button, FlatList, TouchableOpacity} from "react-native";
+import {View, Text, Button, FlatList, TouchableOpacity, useColorScheme} from "react-native";
 import { GetHeaders, ParticipantsExtract } from "./Sigaa-utils";
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 const ParticipantesExtractor = new ParticipantsExtract;
 
-const estilos = {
-    participantsContainer:{
-        padding:10,
-    },
-    listaAlunosContainer: {
-        marginBottom: 80
-    },
-    listaProfessoresContainer: {
-        marginBottom: 80,
-    },
-    alunoContainer: {
-        paddingVertical: 10,
-        paddingHorizontal: 4,
-        backgroundColor: "#ddd",
-        marginBottom: 4,
-    },
-    button: {
-        borderWidth: 1,
-        borderColor: "black",
-        padding: 5,
-        width: "30%",
-        marginTop: 10,
-        marginBottom: 10
-    },
-    buttonSelecionado: {
-        backgroundColor: "#ccc"
-    },
-    leftButton: {
-        borderRightWidth: 0,
-        borderTopLeftRadius: 20,
-        borderBottomLeftRadius: 20,
-    },
-    rigthButton: {
-        borderLeftWidth: 0,
-        borderTopRightRadius: 20,
-        borderBottomRightRadius: 20,
-    },
-    buttonContainer: {
-        flexDirection: "row",
-        justifyContent: "flex-start"
-    }
-}
-
 export default function Participantes({sessionID, handler, disciplina}){
+    const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
     const [selecionado, setSelecionado] = React.useState(true);
     const [professores, setProfessores] = React.useState([]);
     const [alunos, setAlunos] = React.useState([]);
@@ -76,8 +36,8 @@ export default function Participantes({sessionID, handler, disciplina}){
 
     function renderProfessores({item}){
         return (
-            <View style={estilos.alunoContainer} accessible={true}>
-                <Text>{item.nome}</Text>
+            <View style={theme.alunoContainer} accessible={true}>
+                <Text style={{fontWeight:"bold", marginBottom:7}}>{item.nome}</Text>
                 <Text>Departamento: {item.departamento}</Text>
                 <Text>Formação: {item.formacao}</Text>
                 <Text>Email: {item.email}</Text>
@@ -88,7 +48,7 @@ export default function Participantes({sessionID, handler, disciplina}){
 
     function renderAlunos({item}){
         return (
-            <View style={estilos.alunoContainer} accessible={true}>
+            <View style={theme.alunoContainer} accessible={true}>
                 <Text style={{fontWeight:"bold", marginBottom:7}}>{item.nome}</Text>
                 <Text>Matrícula: {item.matricula}</Text>
                 <Text>Curso: {item.curso}</Text>
@@ -99,22 +59,22 @@ export default function Participantes({sessionID, handler, disciplina}){
     }
 
     return (
-        <View style={estilos.participantsContainer}>
+        <View style={theme.participantsContainer}>
             <Button title="Voltar" onPress={()=>{handler(true)}}/>
-            <View style={estilos.buttonContainer}>
-                <TouchableOpacity accessibilityLabel={`${selecionado?"Selecionado Professores":""}`} onPress={()=>{setSelecionado(true);}} style={[estilos.button, estilos.leftButton, selecionado?estilos.buttonSelecionado: null]}>
-                    <Text style={{textAlign: "center"}}>Professores</Text>
+            <View style={theme.buttonContainer}>
+                <TouchableOpacity accessibilityLabel={`${selecionado?"Selecionado Professores":""}`} onPress={()=>{setSelecionado(true);}} style={[theme.button, theme.leftButton, selecionado?theme.buttonSelecionado: null]}>
+                    <Text style={theme.textMap}>Professores</Text>
                 </TouchableOpacity>
-                <TouchableOpacity accessibilityLabel={`${!selecionado?"Selecionado Alunos":""}`} onPress={()=>{setSelecionado(false);}} style={[estilos.button, estilos.rigthButton, !selecionado?estilos.buttonSelecionado: null]}>
-                    <Text style={{textAlign: "center"}}>Alunos</Text>
+                <TouchableOpacity accessibilityLabel={`${!selecionado?"Selecionado Alunos":""}`} onPress={()=>{setSelecionado(false);}} style={[theme.button, theme.rigthButton, !selecionado?theme.buttonSelecionado: null]}>
+                    <Text style={theme.textMap}>Alunos</Text>
                 </TouchableOpacity>
             </View>
 
             {selecionado? (
                 <FlatList 
-                    style={estilos.listaProfessoresContainer} 
+                    style={theme.listaProfessoresContainer} 
                     ListEmptyComponent={
-                        <Text>Procurando professores...</Text>
+                        <Text style={theme.paragrafo}>Procurando professores...</Text>
                     }
                     data={professores} 
                     renderItem={renderProfessores}
@@ -122,9 +82,9 @@ export default function Participantes({sessionID, handler, disciplina}){
                 />
                 ):(
                 <FlatList 
-                    style={estilos.listaAlunosContainer} 
+                    style={theme.listaAlunosContainer} 
                     ListEmptyComponent={
-                        <Text>Procurando alunos...</Text>
+                        <Text style={theme.paragrafo}>Procurando alunos...</Text>
                     }
                     data={alunos} 
                     renderItem={renderAlunos} 

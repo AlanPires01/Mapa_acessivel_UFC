@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView} from 'react-native';
+import {View, Text,Button, StyleSheet, ScrollView, useColorScheme} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
-import {css} from '../assets/css/css';
 import { Paragraph,Title,Divider } from 'react-native-paper';
+import {dark} from '../assets/css/dark';
+import {light} from '../assets/css/light';
 
 export default function OnibusIntracampus({ navigation }) {
+  const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
   return (
-    <ScrollView style={css.container}>
-      <Text style={css.titulo}>Ônibus Intracampus</Text>
+    <ScrollView style={theme.container}>
+      <Text style={theme.titulo}>Ônibus Intracampus</Text>
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-      <Text style={css.texto}>
-               <Paragraph>          O Campus de Sobral oferece serviço de transporte gratuito aos membros da comunidade acadêmica através do “Ônibus Intracampus”.
+      <Text style={theme.texto}>
+               <Paragraph style={theme.linksText}>          O Campus de Sobral oferece serviço de transporte gratuito aos membros da comunidade acadêmica através do “Ônibus Intracampus”.
                O ônibus intracampus funciona durante os dias letivos percorrendo trajeto que interliga os vários prédios nos quais há atividades da UFC. {'\n'}
                </Paragraph>
                {'\n'}
-                <Title>Horario de funcionamento</Title> {'\n'}
+                <Title style={theme.linksText}>Horario de funcionamento</Title> {'\n'}
                 O ônibus intracampus sai do Mucambinho nos seguintes horários: {'\n'}
                 -07h15 {'\n'}
                 -08h00 {'\n'}
@@ -32,12 +34,12 @@ export default function OnibusIntracampus({ navigation }) {
                 -18h00 {'\n'}
                 -19h00 {'\n'}
                 {'\n'}
-                <Title>Contato</Title> {'\n'}
+                <Title style={theme.linksText}>Contato</Title> {'\n'}
                 E-mail: prefeitura@sobral.ufc.br {'\n'} 
                 Fone: (88) 3695-4602.
       </Text>  
       <Divider style={{backgroundColor:'#016EA4', height: 10}} />
-       <View style={css.botao}>
+       <View style={theme.botao}>
           <Button onPress={()=>navigation.navigate('Links Uteis')} title="Voltar"/>
       </View>
 	</ScrollView>

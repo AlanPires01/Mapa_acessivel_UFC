@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Button, FlatList, TouchableOpacity, Linking} from "react-native";
+import {View, Text, Button, FlatList, TouchableOpacity, Linking, useColorScheme} from "react-native";
 import {PrincipalExtract, GetHeaders} from "./Sigaa-utils.js";
 import Noticia from './Noticia.js';
 import Frequencia from './Frequencia.js';
@@ -7,38 +7,13 @@ import Notas from './Notas.js';
 import Tarefas from "./Tarefas.js";
 import Participantes from "./Participantes.js";
 import Arquivos from "./Arquivos.js";
-
-const estilo = {
-	menuButton:{
-		paddingVertical:15,
-		fontSize: 45,
-		fontWeight: 'bold',
-		backgroundColor: '#ffe',
-		flex:1,
-		justifyContent:'center',
-		alignItems:'center',
-		marginBottom:10,
-		borderWidth:1,
-		borderColor:"#aaa"
-
-	},
-	menuText:{
-		color:'black',
-	},
-	textTitle:{
-		fontSize:15,
-		paddingVertical:10,
-		textAlign:"center"
-	},
-	container: {
-		padding: 10
-	}
-}
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 const PrincipalExtractor = new PrincipalExtract;
 
 export default function Menu({handler, data, sessionID}){
-	
+	const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
 	const [menuData, setMenuData] = React.useState([]); 
 	const [selectedOption, setSelectedOption] = React.useState([]);
 	const [option, setOption] = React.useState(true);
@@ -85,8 +60,8 @@ export default function Menu({handler, data, sessionID}){
 					accessibilityRole="button"
 				>
 
-					<View style={estilo.menuButton}>
-						<Text style={estilo.menuText}>{item.menu}</Text>
+					<View style={theme.menuButton}>
+						<Text style={theme.menuText}>{item.menu}</Text>
 					</View>
 				</TouchableOpacity>
 		);
@@ -117,13 +92,13 @@ export default function Menu({handler, data, sessionID}){
 
 	return (
 		  option ? (
-			<View style={estilo.container}>
+			<View style={theme.menuContainer}>
 				<Button title="Voltar" onPress={()=>{handler(false)}}/>
-				<Text style={estilo.textTitle}>{data?.[0].disciplina}</Text>
+				<Text style={theme.menuTextTitle}>{data?.[0].disciplina}</Text>
 				<View>
 					<FlatList 
 						ListEmptyComponent={
-							<Text style={{textAlign:"center"}}>Carregando menu...</Text>
+							<Text style={theme.textMap}>Carregando menu...</Text>
 						} 
 						data={menuData} 
 						renderItem={renderItem} 

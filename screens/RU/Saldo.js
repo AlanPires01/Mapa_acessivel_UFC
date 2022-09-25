@@ -1,9 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, FlatList, useColorScheme } from "react-native";
 import { getINFO } from "./RU-utils";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 export default function Saldo({voltar}){
+    const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
     const [numero, setNumero] = React.useState("");
     const [matricula, setMatricula] = React.useState("");
     const [consultando, setConsultando] = React.useState(false);
@@ -53,11 +56,11 @@ export default function Saldo({voltar}){
                 <View>
                     <View style={estilo.saldoInputContainer}>
                         <Text style={estilo.InputText}>Numero do Cartão</Text>
-                        <TextInput value={numero} placeholder="Digite aqui" onChangeText={(text)=>{setNumero(text)}} style={estilo.saldoInput}/>
+                        <TextInput value={numero} placeholder="Digite aqui" onChangeText={(text)=>{setNumero(text)}} style={theme.saldoInput}/>
                     </View>
                     <View style={estilo.saldoInputContainer}>
                         <Text style={estilo.InputText}>Numero da Matrícula</Text>
-                        <TextInput value={matricula} placeholder="Digite aqui" onChangeText={(text)=>{setMatricula(text)}}  style={estilo.saldoInput}/>
+                        <TextInput value={matricula} placeholder="Digite aqui" onChangeText={(text)=>{setMatricula(text)}}  style={theme.saldoInput}/>
                     </View>
                     <View style={{alignItems:"center", flexDirection:"column", width:"100%"}}>
                         <TouchableOpacity style={estilo.saldoButton} onPress={()=>{update();}}>
@@ -108,9 +111,9 @@ export default function Saldo({voltar}){
                         <Text style={{color:"white", alignSelf:"center"}}>Refeições disponíveis</Text>
                     </View>
                         
-                    <View style={[estilo.actionContainer]}>
-                        <Text style={[{color:"black"}, estilo.odd]}>NOME : {info.nome}</Text>
-                        <Text style={[{color:"black"}, estilo.even]}>CRÉDITOS : {info.creditos}</Text>
+                    <View style={[theme.actionContainer]}>
+                        <Text style={[{color:"black"}, theme.odd]}>NOME : {info.nome}</Text>
+                        <Text style={[{color:"black"}, theme.even]}>CRÉDITOS : {info.creditos}</Text>
                     </View>
     
                     <View style={{backgroundColor:"#404E82", padding:10}}>
@@ -127,11 +130,6 @@ export default function Saldo({voltar}){
 }
 
 const estilo = StyleSheet.create({
-    saldoInput:{
-        paddingVertical:10,
-        paddingHorizontal:4,
-        borderWidth:1
-    },
     saldoInputContainer:{
         marginBottom:10
     },
@@ -147,16 +145,5 @@ const estilo = StyleSheet.create({
         textAlign:"center",
         color:"white",
         fontWeight:"bold"
-    },
-    actionContainer:{
-        paddingVertical:10,
-        borderWidth:1,
-        borderColor:"#DEDFE3"
-    },
-        odd:{
-        backgroundColor:"#F9FBFD"
-    },
-        even:{
-        backgroundColor:"#DEDFE3"
     },
 });

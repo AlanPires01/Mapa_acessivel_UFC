@@ -1,52 +1,15 @@
 import React, {useState, useRef} from 'react';
-import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, ScrollView, useColorScheme} from 'react-native';
 import { WebView } from 'react-native-webview';
 import BarraDeBusca from './BarraDeBusca';
 import { Icon } from 'react-native-elements';
+import {dark} from '../assets/css/dark';
+import {light} from '../assets/css/light';
 
 //uri: 'https://openlevelup.net/?l=0#'+local.zoom+'/'+local.lon+'/'+local.lat
 //uri: 'https://indoorequal.org/#map=18.98/-3.6937839/-40.3541773/27/15&level=0'
 
-const estilos = {
-	mapaButton: {
-		width: "50%",
-		flex:1,
-		alignItems: "center",
-		paddingVertical: 4,
-		backgroundColor: "white"
-	},
-	selecionado: {
-		color: "#3686ff",
-		backgroundColor: "#eee"
-	},
-	mapButtonText: {
-		fontSize: 10,
-		color: "gray"
-	},
-	descricoesContainer: {
-		width: "40%",
-		backgroundColor: "#fff",
-		right: 0,
-		top: 50,
-		margin: 2,
-		borderRadius: 4,
-		borderWidth: 1,
-		position: "absolute",
-		zIndex: 100
-	},
-	descricoesHeader: {
-		backgroundColor: "#ddd",
-		padding: 4
-	},
-	descricoesContent: {
-		padding: 10,
-		paddingBottom: 10,
-		maxHeight: 400
-	}
-}
-
 const locais = require('.././assets/data/locais.json');
-
 function calcDistance(actualURL, local, MAX_DISTANCE){
 	let position = actualURL.split("/");
 	let zoom = (1/22) * (parseFloat(position[3].split("=")[1]));
@@ -60,24 +23,25 @@ function calcDistance(actualURL, local, MAX_DISTANCE){
 
 const RAIO_DISTANCIA = 0.0002;
 
-
 function DescricaoComponent({menuHandler, isOpen, lugares}){
-	
+	const deviceTheme = useColorScheme();
+  	var theme = light;
+  	if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
 	function renderItem({item}){
 		return (
-			<Text>{item.nome}</Text>
+			<Text style={theme.linksText}>{item.nome}</Text>
 		);
 	}
 	let locaisProximosButtonString = `${isOpen?"Selecionado":"Não selecionado"} lugares proximos, aqui embaixo será exibido uma lista dos lugares proximos.`;
 
 	return (
-		<View  style={estilos.descricoesContainer}>
-			<View style={estilos.descricoesHeader}>
-				<TouchableOpacity accessibilityRole='button' accessibilityLabel={locaisProximosButtonString} onPress={()=>menuHandler()}><Text style={{textAlign:"center"}}>Locais Próximos {isOpen?"-":"+"}</Text></TouchableOpacity>
+		<View  style={theme.descricoesContainer}>
+			<View style={theme.descricoesHeader}>
+				<TouchableOpacity accessibilityRole='button' accessibilityLabel={locaisProximosButtonString} onPress={()=>menuHandler()}><Text style={theme.textMap}>Locais Próximos {isOpen?"-":"+"}</Text></TouchableOpacity>
 			</View>
 			{isOpen ? 
-			<View style={estilos.descricoesContent}>
-				<FlatList data={lugares} renderItem={renderItem} ListEmptyComponent={()=>{ return(<Text>Nenhum lugar próximo!</Text>)}}/>
+			<View style={theme.descricoesContent}>
+				<FlatList data={lugares} renderItem={renderItem} ListEmptyComponent={()=>{ return(<Text style={theme.linksText}>Nenhum lugar próximo!</Text>)}}/>
 			</View> : null}
 		</View>
 	);
@@ -85,6 +49,10 @@ function DescricaoComponent({menuHandler, isOpen, lugares}){
 
 
 export default function Mapa({ navigation }) {
+	const deviceTheme = useColorScheme();
+  	var theme = light;
+	var opac = 0.8;
+  	if(deviceTheme == "dark"){theme = dark; opac=0.8;}else {theme = light; opac=1;}
 	//codigo javascript para apagar a barra de pesquisa do site
 	const javascriptCode = `
 		document.querySelector('.indoor-toolbar').style.display='none';
@@ -141,6 +109,7 @@ export default function Mapa({ navigation }) {
 				source={{ uri: 'https://indoorequal.org/#map='+local.zoom+'/'+local.lon+'/'+local.lat+'/27/15&level=0' }}
 				javaScriptEnabledAndroid={true}
 				injectedJavaScript={javascriptCode}
+				style={{ opacity: opac }}
 			/>
 		</View>
 		
@@ -148,16 +117,16 @@ export default function Mapa({ navigation }) {
 			<TouchableOpacity accessibilityState={{selected: regiao === 0}} onPress={()=>{
 				setRegiao(0);
 				setLocal({lon:'-3.693466', lat:'-40.354933', zoom:'17.97'});
-			}} style={[estilos.mapaButton, regiao === 0 ? estilos.selecionado : null]}>
-				<Icon name="map" type='font-awesome-5'/>
-				<Text style={[estilos.mapButtonText, regiao === 0 ? estilos.selecionado : null]}>Mucabinho</Text>
+			}} style={[theme.mapaButton, regiao === 0 ? theme.selecionado : null]}>
+				<Icon name="map" type='font-awesome-5' color='#6d7a82'/>
+				<Text style={[theme.mapButtonText, regiao === 0 ? theme.selecionado : null]}>Mucabinho</Text>
 			</TouchableOpacity>
 			<TouchableOpacity accessibilityState={{selected: regiao === 1}} onPress={()=>{
 				setRegiao(1);
 				setLocal({lon:'-3.68137', lat:'-40.336832', zoom:'18.29'});
-			}} style={[estilos.mapaButton, regiao === 1 ? estilos.selecionado : null]}>
-				<Icon name="map-marked-alt" type='font-awesome-5'/>
-				<Text style={[estilos.mapButtonText, regiao === 1 ? estilos.selecionado : null]}>Famed</Text>
+			}} style={[theme.mapaButton, regiao === 1 ? theme.selecionado : null]}>
+				<Icon name="map-marked-alt" type='font-awesome-5'  color='#6d7a82'/>
+				<Text style={[theme.mapButtonText, regiao === 1 ? theme.selecionado : null]}>Famed</Text>
 			</TouchableOpacity>
 		</View>
 		

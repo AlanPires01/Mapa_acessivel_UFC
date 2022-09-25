@@ -1,12 +1,15 @@
 import React from "react";
-import {View, Text, Button, FlatList, TouchableOpacity, Alert} from "react-native";
+import {View, Text, Button, FlatList, TouchableOpacity, Alert, useColorScheme} from "react-native";
 import { GetHeaders } from "./Sigaa-utils";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import {Buffer} from "buffer";
 import axios from 'axios';
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 export default function Arquivos({data, handler, sessionID}){
+    const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
     const [baixando, setBaixando] = React.useState(false);
     function download(item){
 
@@ -38,7 +41,7 @@ export default function Arquivos({data, handler, sessionID}){
 
     function renderItem({item}){
         return (
-            <View style={estilos.fileContainer}>
+            <View style={theme.fileContainerSIGAA}>
                 <TouchableOpacity onPress={()=>{
                         if(!baixando){
                             Alert.alert("Download Iniciado", "Por favor espere o download finalizar");
@@ -56,10 +59,10 @@ export default function Arquivos({data, handler, sessionID}){
     }
 
     return (
-        <View style={estilos.container}>
+        <View style={theme.containerSIGAA}>
             <Button title="Voltar" onPress={()=>{handler(true)}}/>
             <FlatList data={data} renderItem={renderItem}
-                ListEmptyComponent={<Text style={{textAlign:"center", margin: 20}}>Nenhum arquivo foi encontrado nessa turma!</Text>}
+                ListEmptyComponent={<Text style={theme.aviso}>Nenhum arquivo foi encontrado nessa turma!</Text>}
                 keyExtractor={(item)=>{return item.nome+item.payload}}
             />
         </View>

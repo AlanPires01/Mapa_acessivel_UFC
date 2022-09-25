@@ -1,11 +1,13 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, useColorScheme } from "react-native";
 import { obterCardapio, extrairCardapio } from "./RU-utils";
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 function Option({title, content}){
-
+    const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
     return (
-        <View style={estilo.option}>
+        <View style={theme.option}>
             <Text style={estilo.optionTitle}>{title}</Text>
             <Text style={estilo.optionContent}>{content}</Text>
         </View>
@@ -13,6 +15,7 @@ function Option({title, content}){
 }
 
 export default function Cardapio({voltar}){
+    const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
     const [cardapio, setCardapio] = React.useState({});
     const [dia, setDia] = React.useState(0);
     const [fetched, setFetched] = React.useState(false);
@@ -78,7 +81,7 @@ export default function Cardapio({voltar}){
                         
                 ):( 
                     <View style={{flex:1}}>
-                        <Text style={{textAlign:"center", fontWeight:"bold"}}>CARREGANDO...</Text>
+                        <Text style={theme.carregando}>CARREGANDO...</Text>
                     </View>  
                 )}
                    
@@ -106,10 +109,6 @@ const estilo = StyleSheet.create({
         color:"white",
         paddingVertical:5,
         marginBottom:5
-    },
-    option:{
-        backgroundColor:"white",
-        marginBottom:10
     },
     optionTitle:{
         fontWeight:"bold",

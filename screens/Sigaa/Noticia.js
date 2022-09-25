@@ -1,6 +1,8 @@
 import React from "react";
-import {Button, View, Text, ScrollView, TouchableOpacity, FlatList} from "react-native";
+import {Button, View, Text, ScrollView, TouchableOpacity, FlatList, useColorScheme} from "react-native";
 import {NewsListExtract, NewsExtract, GetHeaders, convertDataToText} from "./Sigaa-utils.js";
+import {dark} from '../../assets/css/dark';
+import {light} from '../../assets/css/light';
 
 const NewsListExtractor = new NewsListExtract;
 const NewsExtractor = new NewsExtract;
@@ -26,6 +28,7 @@ async function getNewsList(body, sessionID){
 }
 
 export default function Noticia({sessionID, handler, disciplina}){
+	const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
 	const [selectedNews, setSelectedNews] = React.useState([]);
 	const [not, setNot] = React.useState([]);
 	const [showingNews, setShowingNews] = React.useState(true);
@@ -52,7 +55,7 @@ export default function Noticia({sessionID, handler, disciplina}){
 	function renderNot({item}){
 		return (
 			<TouchableOpacity
-				style={estilo.button} 
+				style={theme.buttonS} 
 				onPress={async ()=>{
 					setSelectedNews([]);
 					setShowingNews(false);
@@ -73,9 +76,9 @@ export default function Noticia({sessionID, handler, disciplina}){
 
 	return (
 			showingNews ? (
-				<View style={estilo.newsListContainer}>
+				<View style={theme.newsListContainerS}>
 					<Button title='Voltar' onPress={()=>{handler(true)}}/>
-					<Text style={estilo.textTitle}>Notícias:</Text>
+					<Text style={theme.textTitleS}>Notícias:</Text>
 					<FlatList 
 						ListEmptyComponent={
 							<>
@@ -92,51 +95,19 @@ export default function Noticia({sessionID, handler, disciplina}){
 }
 
 function News({handler, handlerSelectedNews, data}){
+	const deviceTheme = useColorScheme(); var theme = light; if(deviceTheme == "dark"){theme = dark;}else {theme = light;}
 	React.useEffect(()=>{
 		return ()=>{
 			handlerSelectedNews([]);
 		};
 	}, [])
 	return (
-		<ScrollView	 style={estilo.container}>
+		<ScrollView	 style={theme.containerS}>
 			<Button onPress={()=>{handler(true)}} title="Voltar"/>
-			<Text style={estilo.text}><Text style={estilo.labelText}>TITULO: </Text>{(data?.[0]?.titulo) ?? '...'}</Text>
-			<Text style={estilo.text}><Text style={estilo.labelText}>DATA: </Text>{(data?.[0]?.data) ?? '...'}</Text>
-			<Text style={estilo.text}><Text style={estilo.labelText}>TEXTO: </Text>{(data?.[0]?.texto) ?? '...'}</Text>
+			<Text style={theme.textS}><Text style={theme.labelTextS}>TITULO: </Text>{(data?.[0]?.titulo) ?? '...'}</Text>
+			<Text style={theme.textS}><Text style={theme.labelTextS}>DATA: </Text>{(data?.[0]?.data) ?? '...'}</Text>
+			<Text style={theme.textS}><Text style={theme.labelTextS}>TEXTO: </Text>{(data?.[0]?.texto) ?? '...'}</Text>
 		</ScrollView>
 
 	)
-}
-
-const estilo = {
-	labelText:{
-		fontWeight:'bold',
-	},
-	text:{
-		marginTop: 2,
-		marginBottom: 10,
-		fontFamily: 'monospace'
-	},
-	container:{
-		padding:10,
-		paddingBottom: 50
-	},
-	button:{
-		paddingVertical:10,
-		marginVertical: 2,
-		paddingLeft: 10,
-		paddingRight: 10,
-		backgroundColor: '#ffe',
-		borderWidth: 1,
-		borderColor: '#aaa'
-	},
-	newsListContainer:{
-		paddingBottom: 90,
-		padding: 10
-	},
-	textTitle:{
-		fontSize:20,
-		fontWeight:'bold',
-		lineHeight: 40
-	}
 }
