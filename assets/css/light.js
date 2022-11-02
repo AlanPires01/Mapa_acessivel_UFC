@@ -5,6 +5,10 @@ const light = StyleSheet.create({
     textAlign:"center", 
     margin: 20,
   },
+  tarefa2:{
+    textAlign:"center", 
+    margin: 10,
+  },
   carregando:{
     textAlign:"center", 
     fontWeight:"bold"

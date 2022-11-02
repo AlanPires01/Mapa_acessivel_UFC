@@ -61,7 +61,7 @@ export default function Notas({sessionID, disciplina, handler}){
 						}} title="Voltar"/>
 			<Text style={theme.text4}>NOTAS{'\n'}</Text>
 			<FlatList ListEmptyComponent={
-				<><Text>{estado}</Text></>
+				<><Text style={theme.iconMap}>{estado}</Text></>
 			} data={grades} renderItem={renderItem} keyExtractor={item=>item.conteudo+item.titulo}/>
 		</View>
 	);

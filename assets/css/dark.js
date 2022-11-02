@@ -6,6 +6,11 @@ const dark = StyleSheet.create({
     margin: 20,
     color: 'white',
   },
+  tarefa2:{
+    textAlign:"center", 
+    margin: 10,
+    color: 'white',
+  },
   carregando:{
     textAlign:"center", 
     fontWeight:"bold",

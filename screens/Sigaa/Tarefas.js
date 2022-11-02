@@ -60,7 +60,7 @@ export default function Tarefas({sessionID, handler, disciplina}){
                 ListEmptyComponent={()=>{
                     return (
                         <View>
-                            <Text style={{textAlign:"center", margin: 10}}>{encontradaTarefa}</Text>
+                            <Text style={theme.tarefa2}>{encontradaTarefa}</Text>
                         </View>
                     );
                 }} 

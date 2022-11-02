@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Image, ScrollView, useColorScheme} from 'react-native';
 import { Icon } from 'react-native-elements';
-import {css} from '../assets/css/css';
 import {Paragraph,Title,Divider} from 'react-native-paper';
 import {dark} from '../assets/css/dark';
 import {light} from '../assets/css/light';
@@ -31,6 +30,7 @@ export default function QuemSomosNos({ navigation }) {
             <Text style={theme.texto}>Antoniel da Silva Soares{'\n'}
                 José Alan Torres Pires {'\n'}
                 Lincoln Gondin Monteiro Gomes {'\n'}
+                Marco Aurélio Gonçalves Ximenes{'\n'}
                 Matheus Ferreira dos Santos
             </Text>
       </Text>

@@ -82,7 +82,7 @@ export default function Noticia({sessionID, handler, disciplina}){
 					<FlatList 
 						ListEmptyComponent={
 							<>
-								<Text style={{textAlign:"center"}}>{newsState}</Text>
+								<Text style={theme.textMap}>{newsState}</Text>
 							</>
 						}
 						renderItem={renderNot} 
