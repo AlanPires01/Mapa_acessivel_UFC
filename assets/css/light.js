@@ -39,7 +39,7 @@ const light = StyleSheet.create({
   },
   titulo:{
     fontSize:30,
-    marginTop:10,
+    marginTop:1,
     color:'black',
     textAlign: "center",
     width:'100%', 

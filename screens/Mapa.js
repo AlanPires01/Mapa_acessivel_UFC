@@ -51,7 +51,7 @@ function DescricaoComponent({menuHandler, isOpen, lugares}){
 export default function Mapa({ navigation }) {
 	const deviceTheme = useColorScheme();
   	var theme = light;
-	var opac = 0.8;
+	var opac = 1;
   	if(deviceTheme == "dark"){theme = dark; opac=0.8;}else {theme = light; opac=1;}
 	//codigo javascript para apagar a barra de pesquisa do site
 	const javascriptCode = `

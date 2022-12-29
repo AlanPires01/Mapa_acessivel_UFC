@@ -25,7 +25,7 @@ const CustomDrawer = (props) =>{
       <View style={{flexDirection: 'row',
         justifyContent:'center'}}>
         <Image 
-        source={require('./assets/logo_ufc.png')}
+        source={require('./assets/icon1.png')}
         style={css.logoApp}
         />
       </View>
