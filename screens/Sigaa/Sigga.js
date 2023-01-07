@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TextInput, Button, Alert, useColorScheme} from 'react-native';
 import {logIN, acessarPaginaInicial, getNewSessionID, GetHeaders} from './Sigaa-utils.js';
 import PaginaInicial from './PaginaInicial.js';
+import Vinculos from './Vinculos.js';
 import {dark} from '../../assets/css/dark';
 import {light} from '../../assets/css/light';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -14,6 +15,8 @@ export default function Sigga(){
 	const [senha, setSenha] = React.useState('');
 	const [sessionID, setSessionID] = React.useState('');
 	const [loginState, setLoginState] = React.useState(false);
+    const [maisDeUmVinculo, setMaisDeUmVinculo] = React.useState(false);
+    const [vinculosData, setVinculosData] = React.useState({});
 
 	const logar = async()=>{
 		if(user === '' || senha === ''){
@@ -27,14 +30,21 @@ export default function Sigga(){
 			return;
 		}
 		const resposta = await logIN(user, senha, session);
-		if(resposta === false){
+		if(resposta.state === false){
 			Alert.alert("Erro de login!", "Usuário ou senhas incorretos!");
 			return;
 		}
 
-		await acessarPaginaInicial(session);
-		setSessionID(session);
-		setLoginState(true);
+        if(resposta.url.includes("vinculos")){
+            setMaisDeUmVinculo(true);
+            setVinculosData(resposta.data);
+        }
+        else{
+            await acessarPaginaInicial(session);
+        }
+
+        setLoginState(true);
+        setSessionID(session);
 	}
 
 	const logOff = () =>{
@@ -69,7 +79,12 @@ export default function Sigga(){
 				</View>
 			</View>
 		) : (
-			<PaginaInicial sessionID={sessionID} handler={logOff}/>
+            maisDeUmVinculo ? (
+                <Vinculos sessionID={sessionID} data={vinculosData} handler={setMaisDeUmVinculo}/>
+            ) : (
+                <PaginaInicial sessionID={sessionID} handler={logOff}/>
+            )
+		
 		)
 	)
 }

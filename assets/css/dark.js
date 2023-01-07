@@ -395,5 +395,24 @@ const dark = StyleSheet.create({
   tarefaNaoEnviada: {
     backgroundColor: "#fdd"
   },
+  vinculosContainer:{
+    backgroundColor: "#0d0e21",
+    flex: 1,
+    padding: 10,
+  },
+   vinculosText: {
+    color:"white",
+    fontWeight: "bold",
+    marginBottom: 5,
+    fontSize: 17
+   },
+    vinculosComponentContainer:{
+        margin: 10,
+        padding: 5,
+        backgroundColor: "#9fc5e8",
+    },
+    vinculosComponentText:{
+        color: "black"
+    }
 });
 export {dark};

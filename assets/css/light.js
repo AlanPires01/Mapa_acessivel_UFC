@@ -365,5 +365,22 @@ const light = StyleSheet.create({
   tarefaNaoEnviada: {
       backgroundColor: "#fdd"
   },
+  vinculosContainer:{
+    flex: 1,
+    padding: 10,
+  },
+   vinculosText: {
+    fontWeight: "bold",
+    marginBottom: 5,
+    fontSize: 17,
+   },
+    vinculosComponentContainer:{
+        margin: 10,
+        padding: 5,
+        backgroundColor: "#ddd",
+    },
+    vinculosComponentText:{
+        color: "black"
+    }
 });
 export {light};

@@ -323,6 +323,31 @@ class WorkExtract extends ExtractHTML{
 	}
 }
 
+class VinculosExtract extends ExtractHTML{
+    constructor(){
+        super();
+    }
+    updateData(text){
+        this.rawData = text;
+        const root = parse(text);
+        let saida = {}
+        const ul = root.querySelectorAll(".listagem > ul > li");
+        let vinculos = [];
+        for(let vinculo = 0; vinculo < ul.length; vinculo++){
+            let span = ul[vinculo].querySelectorAll("span");
+            let link = ul[vinculo].querySelector("a").getAttribute("href");
+            vinculos.push({
+                vinculo: span[2].structuredText,
+                identificador: span[3].structuredText,
+                ativo: span[4].structuredText,
+                infos: span[5].structuredText,
+                link: link
+            });
+        }
+        this.data = vinculos;
+    }
+}
+
 class ParticipantsExtract extends ExtractHTML{
 	constructor(){
 		super();
@@ -410,7 +435,8 @@ class ParticipantsExtract extends ExtractHTML{
 
 const urls = {
 	sitePrincipal: "https://si3.ufc.br/sigaa/",
-	login: "https://si3.ufc.br/sigaa/logar.do?dispatch=logOn"
+	login: "https://si3.ufc.br/sigaa/logar.do?dispatch=logOn",
+    vinculo: "https://si3.ufc.br/sigaa/escolhaVinculo.do?dispatch=escolher&vinculo=2"
 }
 
 /* Retorna o corpo da requisição de login */
@@ -434,24 +460,27 @@ const logIN = async (usuario, senha, sessionID) => {
 		},
 		body: generateLogINPayloadBody(usuario, senha)
 	});
-	return !(response.url.includes('logar.do'));
+    let url = response.url;
+    let state = !(url.includes('logar.do'));
+    let data = [];
+    if(url.includes("vinculos")){
+        /* se foi detectado mais de um vinculo ativo ele ira selecionar automaticamente */
+        console.log("Feito");
+        const textData = await response.text();
+        const vinExt = new VinculosExtract;
+        vinExt.updateData(textData);
+        data = vinExt.getData();
+    }
+    let saida = {state: state, url: url, data:data};
+	return saida; 
 }
 
 const acessarPaginaInicial = async (sessionID)=>{
 
 	await fetch("https://si3.ufc.br/sigaa/paginaInicial.do",{
 		method:"get",
-		headers:{
-			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,* /*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-			"Accept-Encoding": "gzip, deflate, br",
-			"Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-			"Cache-Control": "max-age=0",
-			"Connection": "keep-alive",
-			"Cookie": `JSESSIONID=${sessionID}`,
-			"Host": "si3.ufc.br",
-			"Origin": "https://si3.ufc.br"
-		}
-	})
+		headers: GetHeaders(sessionID)	
+    })
 }
 
 
@@ -491,4 +520,4 @@ function convertDataToText(data){
 	return msg;
 }
 
-export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, ParticipantsExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders, convertDataToText};
+export {OldClassesExtract, NewsListExtract, NewsExtract, PrincipalExtract, FrequencyExtract, GradesExtract, WorkExtract, ParticipantsExtract, logIN, acessarPaginaInicial, getNewSessionID, GetHeaders, convertDataToText, VinculosExtract};
