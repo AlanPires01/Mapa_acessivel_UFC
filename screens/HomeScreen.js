@@ -9,11 +9,12 @@ export default function HomeScreen({ navigation }) {
   var theme = light; var foto = true;
   if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}
   var icon = foto ? require('../assets/tae1.jpeg') : require('../assets/tae1.png');
+  var icon2 = foto ? require('../assets/logo_ufc.png') : require('../assets/logo.png');
   return (
     <ScrollView style={theme.container}>
-        <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', margin: 2}}>
+        <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', margin: 25}}>
             <Image 
-              source={require('../assets/logo_ufc.png')}
+              source={icon2}
               style={{width:150,height:150}}
             />
             <Image 

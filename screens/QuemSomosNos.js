@@ -9,11 +9,11 @@ export default function QuemSomosNos({ navigation }) {
   const [showTAE, setTAE] = useState(false);
   const [showDev, setDev] = useState(false);
   const deviceTheme = useColorScheme(); var theme = light; var foto = true; if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}
-  var icon = foto ? require('../assets/tae.jpeg') : require('../assets/tae2.png');
+  var icon = foto ? require('../assets/tae.jpeg') : require('../assets/tae.png');
 
   return (
     <ScrollView style={theme.container}>
-      <Text style={theme.titulo}>Quem somos ?</Text>
+      <Text style={theme.titulo}>{'\n'}Quem somos? {'\n'}</Text>
       <Divider style={{backgroundColor:'#016EA4', height: 10}}/>
       <View accessible={true} accessibilityHint="Pressione para exibir informações sobre os desenvolvedores" accessibilityState={{checked:showDev}} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 2 }}>
          <Icon style={theme.icon} name='dev' type='font-awesome-5'/>

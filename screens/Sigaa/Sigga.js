@@ -70,8 +70,8 @@ export default function Sigga(){
 				<View style={theme.inputContainerSenha}>
 					<TextInput style={theme.inputSenha} onChangeText={(e)=>setSenha(e)} placeholder={'Senha'} secureTextEntry={hidePass}/>
 					<TouchableOpacity style={theme.iconEye} onPress={() => sethidePass(!hidePass)}>
-						{ hidePass ? <Ionicons name="eye" color="#858585" size={25}></Ionicons> : 
-						<Ionicons name="eye-off" color="#858585" size={25}></Ionicons>}
+						{ hidePass ? <Ionicons name="eye-off" color="#858585" size={23.3}></Ionicons> : 
+						<Ionicons name="eye" color="#858585" size={23.3}></Ionicons>}
 					</TouchableOpacity>
 				</View>	
 				<View style={theme.inputContainerSigaa}>

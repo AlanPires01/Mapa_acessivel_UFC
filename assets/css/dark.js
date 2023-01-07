@@ -43,7 +43,7 @@ const dark = StyleSheet.create({
   },
   titulo:{
     fontSize:30,
-    marginTop:10,
+    marginTop:1,
     color:'white',
     textAlign: "center",
     width:'100%', 
@@ -210,7 +210,7 @@ const dark = StyleSheet.create({
 	textSigaa:{
 		fontSize:40,
 		margin:20,
-		color:'#2ddaec'
+		color:'#ccc'
 	},
 	inputContainerSigaa:{
 		width:'80%'
