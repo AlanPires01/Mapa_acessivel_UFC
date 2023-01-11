@@ -24,10 +24,10 @@ export default function RU(){
             </View>
         );
     }
-    if(escolha === 1){
+    else if(escolha === 1){
         return (<Cardapio voltar={voltar}/>)
     }
-    if(escolha === 2){
+    else if(escolha === 2){
         return (<Saldo voltar={voltar}/>);
     }
 }

@@ -24,11 +24,8 @@ export default function Cardapio({voltar}){
     React.useEffect(()=>{
         async function getData(){
             const html = await obterCardapio();
-            console.log("Cardapio obtido!");
             const json = extrairCardapio(html);
-            console.log("Cardapio Extraido!");
             if(componentMounted){
-                console.log("Informacao baixada");
                 setCardapio(json);
                 setFetched(true);
             }
@@ -58,7 +55,7 @@ export default function Cardapio({voltar}){
                 {(fetched) ? (
                     <ScrollView style={{ paddingHorizontal:10}}>
                         <View>
-                            <Text style={estilo.refeicaoTipoText}>ALMOÇO</Text>
+                            <Text style={estilo.refeicaoTipoText}>ALMOÇO - {cardapio.data[dia]}</Text>
                             <Option title="OPÇÃO 1" content={cardapio.almoco.opcao1[dia]}/>
                             <Option title="OPÇÃO 2" content={cardapio.almoco.opcao2[dia]}/>
                             <Option title="VEGETARIANO" content={cardapio.almoco.vegetariano[dia]}/>
@@ -68,7 +65,7 @@ export default function Cardapio({voltar}){
                             <Option title="SOBREMESA" content={cardapio.almoco.sobremesa[dia]}/>
                         </View>
                         <View>
-                            <Text style={estilo.refeicaoTipoText}>JANTAR</Text>
+                            <Text style={estilo.refeicaoTipoText}>JANTAR - {cardapio.data[dia]}</Text>
                             <Option title="OPÇÃO 1" content={cardapio.janta.opcao1[dia]}/>
                             <Option title="OPÇÃO 2" content={cardapio.janta.opcao2[dia]}/>
                             <Option title="VEGETARIANO" content={cardapio.janta.vegetariano[dia]}/>

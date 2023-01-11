@@ -1,6 +1,43 @@
 import fetch from "node-fetch"
 import {parse} from "node-html-parser"
 
+const quantidadeDiasNoMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+const meses = {
+    "janeiro":1,
+    "fevereiro":2,
+    "março":3,
+    "abril":4,
+    "maio":5,
+    "junho":6,
+    "julho":7,
+    "agosto":8,
+    "setembro":9,
+    "outubro":10,
+    "novembro":11,
+    "dezembro":12
+};
+
+function getDias(diaInicial, diaFinal, mes){
+    let saida = []
+    let mesAtual = mes;
+    let dia = diaInicial;
+    while(true){
+        saida.push(`${dia.toString().padStart(2, '0')}/${mesAtual.toString().padStart(2, '0')}`);
+        if(dia == diaFinal){
+            break;
+        }
+        dia++;
+        if(dia>quantidadeDiasNoMes[mesAtual-1]){
+            dia = 1;
+            mesAtual++;
+            if(mesAtual>12){
+                mesAtual = 1;
+            }
+        }
+    }
+    return saida;
+}
+
 async function obterCardapio(){
     const response = await fetch("https://sobral.ufc.br/ru/");
     const text = await response.text();
@@ -28,27 +65,31 @@ function extrairCardapio(html){
         });
         return linha;
     });
-    
+   
     try{
+        let dias = t[0][0].split(" ");
+        let diaInicial = parseInt(dias[3]);
+        let diaFinal = parseInt(dias[5]);
+        let mes = meses[dias[7]]
         const saida = {
-            data: t[0],
+            data: getDias(diaInicial, diaFinal, mes),
             almoco:{
-                opcao1:t[2].slice(1),
-                opcao2:t[3].slice(1),
-                vegetariano:t[4].slice(1),
-                salada:t[5].slice(1),
-                guarnicao:t[6].slice(1),
-                acompanhamentos:t[7].slice(1),
-                sobremesa:t[8].slice(1)
+                opcao1:t[2].slice(1,6),
+                opcao2:t[3].slice(1,6),
+                vegetariano:t[4].slice(1,6),
+                salada:t[5].slice(1,6),
+                guarnicao:t[6].slice(1,6),
+                acompanhamentos:t[7].slice(1,6),
+                sobremesa:t[8].slice(1,6)
             },
             janta:{
-                opcao1:t[12].slice(1),
-                opcao2:t[13].slice(1),
-                vegetariano:t[14].slice(1),
-                salada:t[15].slice(1),
-                guarnicao:t[16].slice(1),
-                acompanhamentos:t[17].slice(1),
-                sobremesa:t[18].slice(1)
+                opcao1:t[12].slice(1,6),
+                opcao2:t[13].slice(1,6),
+                vegetariano:t[14].slice(1,6),
+                salada:t[15].slice(1,6),
+                guarnicao:t[16].slice(1,6),
+                acompanhamentos:t[17].slice(1,6),
+                sobremesa:t[18].slice(1,6)
             }
         };
         return saida;
@@ -86,7 +127,6 @@ async function getINFO(codigoCartao, matriculaAtreladaCartao){
             nome: "",
             creditos: 0,
             acoes: []
-
         }
     }
   
