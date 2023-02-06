@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView, useColorScheme} from 'react-native';
-import A from 'react-native-a';
-import { Icon } from 'react-native-elements';
+import React from 'react';
+import {View, Text,Button, ScrollView, useColorScheme} from 'react-native';
 import { Paragraph,Title,Divider } from 'react-native-paper';
 import {dark} from '../assets/css/dark';
 import {light} from '../assets/css/light';

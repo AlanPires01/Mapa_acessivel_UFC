@@ -4,11 +4,6 @@ import {dark} from '../../assets/css/dark';
 import {light} from '../../assets/css/light';
 import {GradesExtract, GetHeaders} from './Sigaa-utils.js';
 
-const estilo = {
-	gradesContainer: {
-		padding:10
-	}
-}
 
 const getGrades = async (sessionID, payload) => {
 	const response = await fetch("https://si3.ufc.br/sigaa/ava/index.jsf", {

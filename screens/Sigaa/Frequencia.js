@@ -4,22 +4,6 @@ import {FrequencyExtract, GetHeaders} from './Sigaa-utils.js';
 import {dark} from '../../assets/css/dark';
 import {light} from '../../assets/css/light';
 
-const estilo = {
-	frequencyContainer:{
-		padding:10,
-	},
-	text:{
-		padding: 10,
-		backgroundColor: "#ddd",
-		borderBottomWidth: 1,
-	},
-	infoText: {
-		padding: 5,
-		backgroundColor: "#ddd",
-		borderBottomWidth: 1
-	}
-}
-
 
 const FrequencyExtractor = new FrequencyExtract;
 

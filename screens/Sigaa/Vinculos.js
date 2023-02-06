@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList, TouchableOpacity, useColorScheme} from 'react-native';
-import {VinculosExtract, GetHeaders} from "./Sigaa-utils";
+import {GetHeaders} from "./Sigaa-utils";
 import {dark} from '../../assets/css/dark';
 import {light} from '../../assets/css/light';
 let theme = light;
@@ -26,11 +26,11 @@ export default function Vinculos(props){
 
 }
 
-function VinculoComponent({vinculo, escolha, sessionID, handler}){
+function VinculoComponent({vinculo, sessionID, handler}){
     return (
         <TouchableOpacity onPress={async ()=>{
                 let url = `https://si3.ufc.br${vinculo.link}`;
-                const response2 = await fetch(url, {
+                await fetch(url, {
                     method: "get",
                     headers: GetHeaders(sessionID) 
                 });

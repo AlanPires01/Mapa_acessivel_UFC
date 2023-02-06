@@ -5,7 +5,7 @@ import {Paragraph,Title,Divider} from 'react-native-paper';
 import {dark} from '../assets/css/dark';
 import {light} from '../assets/css/light';
 
-export default function QuemSomosNos({ navigation }) {
+export default function QuemSomosNos() {
   const [showTAE, setTAE] = useState(false);
   const [showDev, setDev] = useState(false);
   const deviceTheme = useColorScheme(); var theme = light; var foto = true; if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}

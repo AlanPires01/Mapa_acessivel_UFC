@@ -69,14 +69,3 @@ export default function Arquivos({data, handler, sessionID}){
     );
 }
 
-const estilos = {
-    fileContainer: {
-        padding: 10,
-        marginTop: 10,
-        backgroundColor: "#ccc"
-    },
-    container: {
-        padding: 10,
-        marginBottom: 40
-    }
-}

@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Button, FlatList, TouchableOpacity, Linking, useColorScheme} from "react-native";
+import {View, Text, Button, FlatList, TouchableOpacity, useColorScheme} from "react-native";
 import {PrincipalExtract, GetHeaders} from "./Sigaa-utils.js";
 import Noticia from './Noticia.js';
 import Frequencia from './Frequencia.js';

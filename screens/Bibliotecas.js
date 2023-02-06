@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text,Button, StyleSheet, ScrollView, TouchableOpacity, useColorScheme} from 'react-native';
+import {View, Text,Button, ScrollView, TouchableOpacity, useColorScheme} from 'react-native';
 import A from 'react-native-a';
 import { Icon } from 'react-native-elements';
 import { Paragraph,Title,Divider } from 'react-native-paper';

@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, Image, ScrollView, useColorScheme} from 'react-native';
-import { Paragraph,Title, Button } from 'react-native-paper';
+import {View, Image, ScrollView, useColorScheme} from 'react-native';
+import { Paragraph,Title} from 'react-native-paper';
 import {dark} from '../assets/css/dark';
 import {light} from '../assets/css/light';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   const deviceTheme = useColorScheme();
   var theme = light; var foto = true;
   if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}

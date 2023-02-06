@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, ScrollView, Text,View, StyleSheet, FlatList, useColorScheme} from 'react-native';
+import {TouchableOpacity, Text,View, FlatList, useColorScheme} from 'react-native';
 import { Icon } from 'react-native-elements';
 import {dark} from '../assets/css/dark';
 import {light} from '../assets/css/light';

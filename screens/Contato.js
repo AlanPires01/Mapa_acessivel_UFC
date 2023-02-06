@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, Text, ScrollView, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Infos from './Infos';
 import CursosGraduacao from './CursosGraduacao';
@@ -11,7 +10,7 @@ import OnibusIntracampus from './OnibusIntracampus';
 import AssistenciaEstudantil from './AssistenciaEstudantil';
 
 const Stack = createNativeStackNavigator();
-const Contato = ({navigation}) => {
+const Contato = () => {
   return (  
   <Stack.Navigator initialRouteName="Links Uteis" screenOptions={{headerShown: false}}>
     <Stack.Screen name="Links Uteis" component={Infos}/>
