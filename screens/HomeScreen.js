@@ -8,7 +8,7 @@ export default function HomeScreen() {
   const deviceTheme = useColorScheme();
   var theme = light; var foto = true;
   if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}
-  var icon = foto ? require('../assets/tae1.jpeg') : require('../assets/tae1.png');
+  var icon = foto ? require('../assets/tae1_light.jpeg') : require('../assets/tae1_dark.png');
   var icon2 = foto ? require('../assets/logo_ufc.png') : require('../assets/logo.png');
   return (
     <ScrollView style={theme.container}>

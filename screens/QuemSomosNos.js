@@ -9,7 +9,7 @@ export default function QuemSomosNos() {
   const [showTAE, setTAE] = useState(false);
   const [showDev, setDev] = useState(false);
   const deviceTheme = useColorScheme(); var theme = light; var foto = true; if(deviceTheme == "dark"){theme = dark; foto = false;}else {theme = light; foto = true;}
-  var icon = foto ? require('../assets/tae.jpeg') : require('../assets/tae.png');
+  var icon = foto ? require('../assets/tae_light.jpeg') : require('../assets/tae_dark.png');
 
   return (
     <ScrollView style={theme.container}>
