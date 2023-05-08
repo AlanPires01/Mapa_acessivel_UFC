@@ -27,7 +27,7 @@ const dark = StyleSheet.create({
     borderWidth:1
   },
   even:{
-    backgroundColor:"#9fc5e8"
+    backgroundColor:"#9faae8"
   },
   odd:{
     backgroundColor:"#9fc5e8"

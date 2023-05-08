@@ -70,7 +70,7 @@ function extrairCardapio(html){
         let dias = t[0][0].split(" ");
         let diaInicial = parseInt(dias[3]);
         let diaFinal = parseInt(dias[5]);
-        let mes = meses[dias[7]]
+        let mes = meses[dias[7].toLowerCase()];
         const saida = {
             data: getDias(diaInicial, diaFinal, mes),
             almoco:{

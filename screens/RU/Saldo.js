@@ -35,8 +35,8 @@ export default function Saldo({voltar}){
 
     function renderAction({item, index}){
         return (
-          <View style={[estilo.actionContainer, index%2==0?estilo.odd:estilo.even]}>
-            <Text><Text>{item.dia}</Text> ás <Text>{item.hora}</Text> <Text>{item.acao}</Text></Text>
+          <View style={[estilo.actionContainer, index%2==0?theme.odd:theme.even]}>
+            <Text><Text>{item.dia}</Text> ás <Text>{item.hora}</Text> <Text>{item.acao} </Text></Text>
           </View>
         );
     }
@@ -119,7 +119,10 @@ export default function Saldo({voltar}){
                     <View style={{backgroundColor:"#404E82", padding:10}}>
                         <Text style={{color:"white", alignSelf:"center"}}>Operações realizadas</Text>
                     </View>
-                    <FlatList renderItem={renderAction} data={info.acoes}/>
+
+                    <View style={[theme.actionContainer]}>
+                        <FlatList renderItem={renderAction} data={info.acoes}/>
+                    </View>
                 </View>
             );
         }
